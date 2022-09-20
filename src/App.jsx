@@ -8,7 +8,7 @@ function App() {
       <PokemonTitle>
         Pokemon
       </PokemonTitle>
-      <PokemonGallery/>
+      <PokemonGallery />
     </MainContent>
   )
 }
