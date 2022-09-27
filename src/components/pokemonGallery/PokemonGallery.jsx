@@ -1,26 +1,35 @@
-import { useQuery } from '@tanstack/react-query'
-import React from 'react'
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
-import { fetchPokemons } from '../../api/pokeApi'
-import  Spinner  from "../spinner/Spinner.jsx"
+import { fetchPokemons } from "../../api/pokeApi";
+import PokemonCard from "../pokemonCard/PokemonCard";
+import Spinner from "../spinner/Spinner.jsx";
+import { GalleryContainer } from "./pokemonGallery.style";
 
 export default function PokemonGallery() {
-  const {data, isError, error,  isLoading } = useQuery(['pokemon'], fetchPokemons)
+  const { data, isError, error, isLoading } = useQuery(
+    ["pokemon"],
+    fetchPokemons
+  );
   if (isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
   if (isError) {
-    return <span>Error: {error.message}</span>
+    return <span>Error: {error.message}</span>;
   }
-  console.log(data)
-  
+  // console.log(data);
+
   return (
-    <div>
-      <ul>
-        {data.map((pokemon) => {
-          return <li key={pokemon.id}>{pokemon.name}</li>
-        })}
-      </ul>
-    </div>
-  )
+    <GalleryContainer>
+      {data.map((pokemon) => (
+        <PokemonCard
+          key={pokemon.id}
+          id={pokemon.id}
+          name={pokemon.name}
+          image={pokemon.sprites.front_default}
+          type={pokemon.types[0].type.name}
+        />
+      ))}
+    </GalleryContainer>
+  );
 }

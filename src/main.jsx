@@ -1,17 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { ChakraProvider } from '@chakra-ui/react'
-import App from './App'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const queryClient = new QueryClient()
+import App from "./App";
+import { GlobalStyles } from "./styles/globalStyles";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <QueryClientProvider client={queryClient}>
-  <React.StrictMode>
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
-  </React.StrictMode>
-    </QueryClientProvider>
-)
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <GlobalStyles />
+      <App />
+    </React.StrictMode>
+  </QueryClientProvider>
+);
