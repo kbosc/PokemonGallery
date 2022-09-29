@@ -2,7 +2,7 @@
 
     Projet perso | Clone d'une Plateforme de streaming
 
-![alt text](https://github.com/kbosc/PokemonGallery/blob/main/public/pokemonGithub/landing.png?raw=true)
+![alt text](https://github.com/kbosc/PokemonGallery/blob/main/public/pokemonGithub.png)
 
 > Quel avenir pour le projet ?
 
