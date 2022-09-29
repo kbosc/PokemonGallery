@@ -1,18 +1,18 @@
 # Pokemon
 
-    Projet perso | Clone d'une Plateforme de streaming
+    Projet perso | Feat Raphaël (6ans)
 
 ![alt text](https://github.com/kbosc/PokemonGallery/blob/main/public/pokemonGithub.png)
 
 > Quel avenir pour le projet ?
 
-Aucune idée, je fait cela en collaboration avec mon fils (6ans) et de ce fait les features apparaitront certainement aux grés de nos envies communes, toutefois quelques features sont déjà annoncées ci-dessous.
+Aucune idée, je fait cela en collaboration avec mon fils et de ce fait les features apparaitront certainement aux grés de nos envies communes, toutefois quelques features sont déjà annoncées ci-dessous.
 
 ## Compétences développées
 
-- [x] Utilisation d'une base de données sur serveur distant
-- [ ] Déveloper un fonctionnalité de recherche
-- [ ] Utilisation d'un state local pour stocker les favoris
+- [x] Récupérations des données sur l'api PokeApi
+- [ ] Déveloper une fonctionnalité de recherche
+- [ ] Utilisation d'un state local pour attraper ses pokemons favoris
 
 ## Bibliothèque
 
