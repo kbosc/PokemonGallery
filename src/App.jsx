@@ -1,5 +1,5 @@
 import { PokemonTitle, MainContent } from "./app.style.jsx";
-import PokemonGallery from "./components/pokemonGallery/PokemonGallery.jsx";
+import PokemonGallery from "./components/pokemonGallery";
 
 function App() {
   return (

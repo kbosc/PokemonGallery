@@ -6,6 +6,7 @@ export const MainContent = styled.main`
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
+  padding: 2rem;
 `;
 
 export const PokemonTitle = styled.h1`

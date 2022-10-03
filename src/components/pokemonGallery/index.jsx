@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
-import { fetchPokemons } from "../../api/pokeApi";
-import PokemonCard from "../pokemonCard/PokemonCard";
-import Spinner from "../spinner/Spinner.jsx";
 import { GalleryContainer } from "./pokemonGallery.style";
+import { fetchPokemons } from "../../api/pokeApi";
+import Spinner from "../spinner/index.jsx";
+import PokemonCard from "../pokemonCard";
 
 export default function PokemonGallery() {
   const { data, isError, error, isLoading } = useQuery(

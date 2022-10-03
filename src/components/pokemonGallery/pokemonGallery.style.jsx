@@ -5,4 +5,6 @@ export const GalleryContainer = styled.main`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 2rem;
+  color: black;
 `;
