@@ -12,7 +12,7 @@ Aucune idée, je fait cela en collaboration avec mon fils et de ce fait les feat
 
 - [x] Récupérations des données sur l'api PokeApi
 - [ ] Déveloper une fonctionnalité de recherche
-- [ ] Utilisation d'un state local pour attraper ses pokemons favoris
+- [x] Utilisation d'un state local pour attraper ses pokemons favoris
 
 ## Bibliothèque
 
