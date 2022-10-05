@@ -9,7 +9,9 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: inherit;
   }
   html {
-    font-size: 62.5%; /* equivalent to 10px; 1rem = 10px; 10px/16px */
+    font-size: 62.5%;
+    font-weight: bold;
+     /* equivalent to 10px; 1rem = 10px; 10px/16px */
   }
   body {
     box-sizing: border-box;

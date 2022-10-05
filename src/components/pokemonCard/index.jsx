@@ -20,7 +20,6 @@ export default function PokemonCard({ id, name, image, type }) {
       : (old_data = old_data.filter((ids) => ids !== id));
 
     localStorage.setItem("storagePokemon", JSON.stringify(old_data));
-    // console.log(localStorage.getItem("storagePokemon"));
   }
 
   return (

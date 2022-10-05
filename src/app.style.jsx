@@ -1,17 +1,14 @@
 import styled from "styled-components";
 
-export const MainContent = styled.main`
-  background-color: #2970b8;
-  height: 100%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.5rem;
-  padding: 2rem;
+export const AppContainer = styled.div`
+  background-color: ${props => props.theme.colors.primary};
+  min-height: 100vh;
 `;
 
-export const PokemonTitle = styled.h1`
+export const PokemonHeader = styled.header`
   text-align: center;
   width: 100vw;
+  height: 10rem;
   font-size: 4rem;
-  color: #ffcc01;
+  color: ${props => props.theme.colors.secondary};
 `;

@@ -8,4 +8,5 @@ export const CardContainer = styled.div`
   padding: 2rem 2rem;
   background-color: white;
   border-radius: 5px;
+  font-size: 1.5rem;
 `;
