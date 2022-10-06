@@ -17,4 +17,8 @@ export const CardContainer = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   color: black;
+  /* display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(20rem, 1fr));
+    grid-auto-rows: 20rem;
+    grid-gap: 2rem; */
 `;

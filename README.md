@@ -13,7 +13,7 @@ Aucune idée, je fait cela en collaboration avec mon fils et de ce fait les feat
 - [x] Récupérations des données sur l'api PokeApi à l'aide d'Axios
 - [ ] Déveloper une fonctionnalité de recherche
 - [x] Utilisation du localStorage pour attraper ces pokemons favoris
-- [x] Utilisation de Tanstack query pour crée un scroll infini
+- [x] Utilisation de Tanstack query et IntersectionObserver pour crée un scroll infini
 
 ## Bibliothèque
 

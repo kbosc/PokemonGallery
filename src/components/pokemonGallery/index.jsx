@@ -1,5 +1,5 @@
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import React from "react";
 
 import {
   ContainerButton,

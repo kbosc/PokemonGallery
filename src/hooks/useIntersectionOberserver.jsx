@@ -4,7 +4,7 @@ export default function useIntersectionObserver({
   root,
   target,
   onIntersect,
-  threshold = 0.7,
+  threshold = 1,
   rootMargin = "0px",
   enabled = false,
 }) {
