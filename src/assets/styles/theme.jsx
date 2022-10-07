@@ -17,14 +17,14 @@ export const ThemeDefault = {
 export const ButtonStyled = styled.button`
   transition: box-shadow 0.1s ease;
   display: block;
-  height: 5rem;
-  margin: 20px;
+  /* height: 5rem; */
+  margin: 1rem;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
   font-family: arial;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 50px;
   cursor: pointer;
   color: rgb(255, 255, 255);

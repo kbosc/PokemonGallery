@@ -12,6 +12,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 20rem;
+  height: 25rem;
   padding: 2rem 2rem;
   border-radius: 5px;
   font-size: 1.5rem;
@@ -21,10 +22,12 @@ export const CardContainer = styled.div`
   animation: ${CardfadeIn} 0.4s ease-out forwards;
 `;
 export const CardButton = styled.button`
+  padding: 1px 0px;
+  margin: 1rem;
   background: none;
   color: inherit;
   border: none;
-  padding: 0;
+  /* padding: 0; */
   font: inherit;
   cursor: grab;
   outline: inherit;

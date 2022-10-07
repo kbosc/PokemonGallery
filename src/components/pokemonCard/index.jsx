@@ -1,18 +1,23 @@
-import React, { useState } from "react";
-import { ContainerButton } from "../../assets/styles/theme";
-import { catchRandomize } from "../../utils/componentsFunction/pokemonCardFunction";
+import React, { useState, useEffect } from "react";
+import { ButtonStyled, ContainerButton } from "../../assets/styles/theme";
+import { catchRandomize } from "./utils/catchRandomize";
 import Pokeball from "../pokeball";
 import { CardContainer, CardButton } from "./pokemonCard.style";
 
 export default function PokemonCard({ id, name, image, type }) {
-  const [selected, isSelected] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [catched, setCatched] = useState(false);
+  // const [oldData, setOldData] = useState([])
+
+  useEffect(() => {
+    const localStringify = localStorage.getItem("storagePokemon");
+    if (!localStringify) return;
+    return setCatched(JSON.parse(localStringify).includes(id));
+  }, [localStorage]);
 
   function addOrRemovePokemonLocalStorage(e) {
     const addPokemon = e.target.innerText;
     let oldData = [];
-
-    localStorage.getItem("storagePokemon") == null &&
-      localStorage.setItem("storagePokemon", []);
 
     try {
       oldData = JSON.parse(localStorage.getItem("storagePokemon"));
@@ -21,10 +26,11 @@ export default function PokemonCard({ id, name, image, type }) {
     }
     if (addPokemon === "") {
       if (!localStorage.getItem("storagePokemon").includes(id)) {
-        catchRandomize(oldData, id, isSelected);
+        catchRandomize(oldData, id, setSelected, setCatched);
       }
     } else {
       oldData = oldData.filter((ids) => ids !== id);
+      setCatched((prev) => !prev);
     }
     localStorage.setItem(
       "storagePokemon",
@@ -39,12 +45,15 @@ export default function PokemonCard({ id, name, image, type }) {
       <img src={image} alt={name} />
       <span>Type: {type}</span>
       <ContainerButton>
-        <CardButton onClick={(e) => addOrRemovePokemonLocalStorage(e)}>
-          <Pokeball selected={selected} />
-        </CardButton>
-        <button onClick={(e) => addOrRemovePokemonLocalStorage(e)}>
-          Remove
-        </button>
+        {!catched ? (
+          <CardButton onClick={(e) => addOrRemovePokemonLocalStorage(e)}>
+            <Pokeball selected={selected} />
+          </CardButton>
+        ) : (
+          <ButtonStyled onClick={(e) => addOrRemovePokemonLocalStorage(e)}>
+            Relacher
+          </ButtonStyled>
+        )}
       </ContainerButton>
     </CardContainer>
   );
