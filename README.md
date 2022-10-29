@@ -2,7 +2,7 @@
 
     Projet perso | Feat Raphaël (6ans)
 
-![alt text](https://github.com/kbosc/PokemonGallery/blob/main/public/pokemonGithub.png)
+![image Pokemon](https://github.com/kbosc/PokemonGallery/blob/main/public/pokemonGithub.png)
 
 > Quel avenir pour le projet ?
 
