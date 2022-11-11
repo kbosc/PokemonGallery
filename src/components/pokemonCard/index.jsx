@@ -17,6 +17,7 @@ export default function PokemonCard({ id, name, image, type }) {
 
   function addOrRemovePokemonLocalStorage(e) {
     const addPokemon = e.target.innerText;
+    
     let oldData = [];
 
     try {
@@ -24,10 +25,11 @@ export default function PokemonCard({ id, name, image, type }) {
     } catch (err) {
       console.log("error", err);
     }
+
     if (addPokemon === "") {
-      if (!localStorage.getItem("storagePokemon").includes(id)) {
+      // if (!localStorage.getItem("storagePokemon").includes(id)) {
         catchRandomize(oldData, id, setSelected, setCatched);
-      }
+      // }
     } else {
       oldData = oldData.filter((ids) => ids !== id);
       setCatched((prev) => !prev);

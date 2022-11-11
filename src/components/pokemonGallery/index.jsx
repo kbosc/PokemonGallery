@@ -27,15 +27,14 @@ export default function PokemonGallery() {
 
   const loadMoreButtonRef = React.useRef();
 
+  const nTimesSpinner = 20;
+
   useIntersectionObserver({
     target: loadMoreButtonRef,
     onIntersect: fetchNextPage,
     enabled: hasNextPage,
   });
 
-  if (isLoading) {
-    return <Spinner />;
-  }
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
@@ -43,17 +42,20 @@ export default function PokemonGallery() {
   return (
     <GalleryContainer>
       <CardContainer>
-        {data.pages.map((group, i) =>
-          group.map((pokemon) => (
-            <PokemonCard
-              key={pokemon.response.id}
-              id={pokemon.response.id}
-              name={pokemon.response.name}
-              image={pokemon.response.sprites.front_default}
-              type={pokemon.response.types[0].type.name}
-            />
-          ))
-        )}
+        {!isLoading ?
+          data.pages.map((group, i) =>
+            group.map((pokemon) => (
+              <PokemonCard
+                key={pokemon.response.id}
+                id={pokemon.response.id}
+                name={pokemon.response.name}
+                image={pokemon.response.sprites.front_default}
+                type={pokemon.response.types[0].type.name}
+              />
+            )))
+        :
+          [...Array(nTimesSpinner)].map((e, i) => <Spinner key={i} />)  
+      }
       </CardContainer>
       <ContainerButton>
         <ButtonStyled
