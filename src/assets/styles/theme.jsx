@@ -4,7 +4,11 @@ export const ThemeDefault = {
   colors: {
     text: "#2c3e50",
     primary: "#2970b8",
-    secondary: "rgb(242,209,71)",
+    pLight: "#659deb",
+    pDark: "#004588",
+    secondary: "#f2d147",
+    sLight: "#ffff79",
+    mDark: "#bca004",
     red: "#f15324",
     black: "#333",
   },

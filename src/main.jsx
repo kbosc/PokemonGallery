@@ -8,6 +8,8 @@ import { GlobalStyles } from "./assets/styles/globalStyles";
 import { ThemeDefault } from "./assets/styles/theme";
 import { ThemeProvider } from "styled-components";
 
+import { BrowserRouter } from "react-router-dom"
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,13 +20,16 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <ThemeProvider theme={ThemeDefault}>
-        <GlobalStyles />
-        <App />
-      </ThemeProvider>
-    </React.StrictMode>
-    <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <ThemeProvider theme={ThemeDefault}>
+          <GlobalStyles />
+          <App />
+        </ThemeProvider>
+      </React.StrictMode>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </BrowserRouter>
+  
 );
