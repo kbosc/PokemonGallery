@@ -8,7 +8,7 @@ import { GlobalStyles } from "./assets/styles/globalStyles";
 import { ThemeDefault } from "./assets/styles/theme";
 import { ThemeProvider } from "styled-components";
 
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter } from "react-router-dom";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,5 +31,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </BrowserRouter>
-  
 );
