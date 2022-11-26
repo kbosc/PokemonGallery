@@ -12,7 +12,6 @@ export default function PokemonCard({ id, name, image, type }) {
   const [catched, setCatched] = useState(false);
   const [play] = useSound(pokemonCatched, { volume: 0.03 });
   
-  // const [oldData, setOldData] = useState([])
 
   useEffect(() => {
     const localStringify = localStorage.getItem("storagePokemon");

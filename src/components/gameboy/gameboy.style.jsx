@@ -70,7 +70,7 @@ export const Led = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  box-shadow: 0px 0px 10px #ff552e;
+  box-shadow: ${(props) => props.$on ? "0px 0px 10px #ff552e" : "" };
   z-index: 5;
 `;
 
@@ -103,7 +103,8 @@ export const Arc = styled.div`
 `;
 
 export const Display = styled.div`
-  background-color: #929d97;
+  /* position: relative; */
+  background-color: ${(props) => props.$on ? "#becbc4" : "#929d97"};
   height: 190px;
   width: 210px;
   border-radius: 3px;
@@ -389,6 +390,7 @@ const sharedStartSelect = css`
 
 export const Start = styled.div`
   ${sharedStartSelect}
+  box-shadow: ${(props) => props.on ? "0px 0px 10px #ff552e" : "0px 0px 10px green"};
 `;
 export const Select = styled.div`
   ${sharedStartSelect}

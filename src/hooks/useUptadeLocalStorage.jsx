@@ -15,7 +15,6 @@ export default function useUptadeLocalStorage(
       catchRandomize(setOldData, id, setSelected, setCatched, oldData);
     }
   } else {
-    console.log("le pokemon était dans le storage");
     setOldData((prev) => prev.filter((ids) => ids !== id));
     setCatched((prev) => !prev);
   }

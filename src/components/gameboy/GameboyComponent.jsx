@@ -39,14 +39,46 @@ import {
   AiFillCaretDown,
   AiFillCaretLeft,
 } from "react-icons/ai";
+import CheckBoxRetro from "../checkboxRetro/CheckBoxRetro";
+import { useState } from "react";
+import useSound from 'use-sound';
+import gameBoySong from "../../assets/sounds/gameBoySong.mp3"
+import AnimatedTextGameboy from "../animatedTextGameboy/AnimatedTextGameboy";
+import { useEffect } from "react";
 
 export default function GameboyComponent() {
+const [on, setOn] = useState(false)
+const [play] = useSound(gameBoySong, { volume: 0.03 });
+
+const gameBoyOn = () => {
+  setOn((prev) => !prev)
+  !on && play()
+}
+
+useEffect(() => {
+  const keyDownHandler = event => {
+    console.log('User pressed: ', event.key);
+    if (event.key === 's') {
+      event.preventDefault();
+      gameBoyOn()
+    }
+  };
+
+  document.addEventListener('keydown', keyDownHandler);
+
+  return () => {
+    document.removeEventListener('keydown', keyDownHandler);
+  };
+}, [play]);
+
+
   return (
     <Gameboy>
+      <CheckBoxRetro />
       <ScreenArea>
         <Power>
           <Indicator>
-            <Led />
+            <Led $on={on}/>
             <Arc style={{ zIndex: "2" }}></Arc>
             <Arc style={{ zIndex: "1" }}></Arc>
             <Arc style={{ zIndex: "0" }}></Arc>
@@ -54,7 +86,9 @@ export default function GameboyComponent() {
           POWER
         </Power>
 
-        <Display>List navigation</Display>
+        <Display $on={on}>
+          {on && <AnimatedTextGameboy />}
+        </Display>
 
         <Label>
           <Title>GAME BOY</Title>
@@ -94,7 +128,7 @@ export default function GameboyComponent() {
 
       <StartSelect>
         <Select>SELECT</Select>
-        <Start>START</Start>
+        <Start onClick={() => gameBoyOn()}>START</Start>
       </StartSelect>
 
       <Speaker>

@@ -1,9 +1,8 @@
 import React from 'react'
 
 export default function BoxPokemon() {
-    var boxPokemon = JSON.parse( localStorage.getItem("storagePokemon"));
-    console.log(typeof boxPokemon)
-    console.log(boxPokemon)
+    const boxPokemon = JSON.parse( localStorage.getItem("storagePokemon"));
+
   return (
     <div>
         {boxPokemon.map((pokemon, i) => (
