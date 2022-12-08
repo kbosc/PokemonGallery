@@ -20,7 +20,8 @@ export const CardContainer = styled.div`
   opacity: 0;
   transform: translateY(-10px);
   animation: ${CardfadeIn} 0.4s ease-out forwards;
-`;
+` as "div";
+
 export const CardButton = styled.button`
   padding: 1px 0px;
   margin: 1rem;
@@ -31,4 +32,4 @@ export const CardButton = styled.button`
   font: inherit;
   cursor: grab;
   outline: inherit;
-`;
+` as "button";

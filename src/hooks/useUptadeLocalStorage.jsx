@@ -1,4 +1,4 @@
-import { catchRandomize } from "../components/pokemonCard/utils/catchRandomize";
+import { catchRandomize } from "../utils/catchRandomize";
 
 export default function useUptadeLocalStorage(
   e,

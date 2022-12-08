@@ -9,7 +9,11 @@ import {
   UpperHalf,
 } from "./pokeball.style";
 
-export default function Pokeball({ selected }) {
+interface Props {
+  selected: boolean;
+}
+
+const Pokeball: React.FC<Props> = ({ selected }) => {
   return (
     <div>
       <PokeballContainer isSelected={selected}>
@@ -23,3 +27,5 @@ export default function Pokeball({ selected }) {
     </div>
   );
 }
+
+export default Pokeball;

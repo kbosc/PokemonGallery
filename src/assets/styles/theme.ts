@@ -1,7 +1,29 @@
 import styled from "styled-components";
 
+
+// interface ThemeDefaultProps {
+//   theme: {
+//     colors?: {
+//       gameboyTxt?: string,
+//       text?: string,
+//       primary?: string,
+//       pLight?: string,
+//       pDark?: string,
+//       secondary?: string,
+//       sLight?: string,
+//       mDark?: string,
+//       red?: string,
+//       black?: string,
+//     },
+//     fontSize?: {
+//       title?: string,
+//       paragraph?: string,
+//     },
+//   }
+// }
 export const ThemeDefault = {
   colors: {
+    gameboyTxt: "#67879a",
     text: "#2c3e50",
     primary: "#2970b8",
     pLight: "#659deb",

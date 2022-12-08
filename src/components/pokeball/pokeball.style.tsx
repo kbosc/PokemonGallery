@@ -1,5 +1,9 @@
 import styled, { keyframes, css } from "styled-components";
 
+// interface PokeballContainerProps {
+//   isSelected: boolean;
+// }
+
 export const PokeballContainer = styled.div`
   height: 30px;
   width: 30px;
@@ -113,13 +117,3 @@ const Shake = keyframes`
    }
  `;
 
-// .selected {
-//     animation: shake 1.5s ease-in infinite;
-//     .indicator {
-//       opacity: 1;
-//       animation: blink 1s ease-in-out infinite;
-//     }
-//     .indicator-inner {
-//       background: $red;
-//     }
-//   }

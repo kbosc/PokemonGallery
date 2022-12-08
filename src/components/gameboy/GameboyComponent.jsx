@@ -51,14 +51,13 @@ const [on, setOn] = useState(false)
 const [play] = useSound(gameBoySong, { volume: 0.03 });
 
 const gameBoyOn = () => {
-  setOn((prev) => !prev)
   !on && play()
+  setOn((prev) => !prev)
 }
 
 useEffect(() => {
   const keyDownHandler = event => {
-    console.log('User pressed: ', event.key);
-    if (event.key === 's') {
+    if (event.key === 's' || event.key === 'S') {
       event.preventDefault();
       gameBoyOn()
     }
