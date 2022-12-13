@@ -73,7 +73,6 @@ useEffect(() => {
 
   return (
     <Gameboy>
-      <CheckBoxRetro />
       <ScreenArea>
         <Power>
           <Indicator>
