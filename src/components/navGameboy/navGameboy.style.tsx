@@ -1,5 +1,5 @@
 // @ts-ignore
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from "styled-components";
 
 const fadeIn = keyframes`
   from {
@@ -9,7 +9,7 @@ const fadeIn = keyframes`
   to {
     opacity: 1;
   }
-`
+`;
 
 export const NavTextUl = styled.ul`
   display: flex;
@@ -35,14 +35,13 @@ export const NavTextUl = styled.ul`
       background-color: #ccc;
 
       &:after {
-        content: '>';
+        content: ">";
         margin-left: 5px;
       }
     }
     a {
-        text-decoration: none;
-        color: ${(props) => props.theme.colors.gameboyTxt};
+      text-decoration: none;
+      color: ${(props) => props.theme.colors.gameboyTxt};
     }
   }
-`
-
+`;

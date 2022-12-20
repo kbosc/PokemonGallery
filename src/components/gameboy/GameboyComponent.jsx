@@ -39,44 +39,51 @@ import {
   AiFillCaretDown,
   AiFillCaretLeft,
 } from "react-icons/ai";
-import CheckBoxRetro from "../checkboxRetro/CheckBoxRetro";
 import { useState } from "react";
-import useSound from 'use-sound';
-import gameBoySong from "../../assets/sounds/gameBoySong.mp3"
+import useSound from "use-sound";
+import gameBoySong from "../../assets/sounds/gameBoySong.mp3";
 import AnimatedTextGameboy from "../animatedTextGameboy/AnimatedTextGameboy";
 import { useEffect } from "react";
 
 export default function GameboyComponent() {
-const [on, setOn] = useState(false)
-const [play] = useSound(gameBoySong, { volume: 0.03 });
+  const [on, setOn] = useState(false);
+  const [carret, setCarret] = useState(false);
+  const [play] = useSound(gameBoySong, { volume: 0.03 });
 
-const gameBoyOn = () => {
-  !on && play()
-  setOn((prev) => !prev)
-}
-
-useEffect(() => {
-  const keyDownHandler = event => {
-    if (event.key === 's' || event.key === 'S') {
-      event.preventDefault();
-      gameBoyOn()
-    }
+  const gameBoyOn = () => {
+    !on && play();
+    setOn((prev) => !prev);
   };
 
-  document.addEventListener('keydown', keyDownHandler);
+  useEffect(() => {
+    const keyDownHandler = (event) => {
+      if (event.key === "s" || event.key === "S") {
+        event.preventDefault();
+        gameBoyOn();
+      }
+    };
 
-  return () => {
-    document.removeEventListener('keydown', keyDownHandler);
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [play]);
+
+  const mooveNavCaret = () => {
+    console.log(carret);
+    setCarret((prev) => !prev);
+    console.log(carret);
+    setCarret((prev) => !prev);
+    console.log(carret);
   };
-}, [play]);
-
 
   return (
     <Gameboy>
       <ScreenArea>
         <Power>
           <Indicator>
-            <Led $on={on}/>
+            <Led $on={on} />
             <Arc style={{ zIndex: "2" }}></Arc>
             <Arc style={{ zIndex: "1" }}></Arc>
             <Arc style={{ zIndex: "0" }}></Arc>
@@ -84,9 +91,7 @@ useEffect(() => {
           POWER
         </Power>
 
-        <Display $on={on}>
-          {on && <AnimatedTextGameboy />}
-        </Display>
+        <Display $on={on}>{on && <AnimatedTextGameboy />}</Display>
 
         <Label>
           <Title>GAME BOY</Title>
@@ -105,13 +110,13 @@ useEffect(() => {
       <Controls>
         <Dpad>
           <Up>
-            <AiFillCaretUp />
+            <AiFillCaretUp onClick={() => mooveNavCaret()} />
           </Up>
           <Right>
             <AiFillCaretRight />
           </Right>
           <Down>
-            <AiFillCaretDown />
+            <AiFillCaretDown onClick={() => mooveNavCaret()} />
           </Down>
           <Left>
             <AiFillCaretLeft />
@@ -130,15 +135,6 @@ useEffect(() => {
       </StartSelect>
 
       <Speaker>
-        {/* <Dot props={"placeholder"} className={"placeholder"}></Dot>
-        <Dot props={"openDot"} className={"openDot"}></Dot>
-        <Dot props={"closed"} className={"closed"}></Dot>
-        <Dot props={"openDot"} className={"openDot"}></Dot>
-        <Dot props={"closed"} className={"closed"}></Dot>
-        <Dot props={"openDot"} className={"openDot"}></Dot>
-        <Dot props={"closed"} className={"closed"}></Dot>
-        <Dot props={"placeholder"} className={"placeholder"}></Dot> */}
-
         <Dot className={"placeholder"}></Dot>
         <Dot className={"openDot"}></Dot>
         <Dot className={"closed"}></Dot>
