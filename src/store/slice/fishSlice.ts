@@ -1,13 +1,12 @@
-// export const createFishSlice = (set) => ({
-//     fishes: 0,
-//     addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
-//   })
-interface FishSlice {
-  fishes: number;
-  addFish: () => void;
-}
+import { StateCreator } from 'zustand'
+import { BearSlice, FishSlice } from "../useStore.js";
 
-export const createFishSlice = (set: (state: FishSlice) => FishSlice): FishSlice => ({
+export const createFishSlice: StateCreator<
+  BearSlice & FishSlice,
+  [],
+  [],
+  FishSlice
+> = (set) => ({
   fishes: 0,
-  addFish: () => set((state: FishSlice) => ({ fishes: state.fishes + 1 })),
-});
+  addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
+})

@@ -1,8 +1,19 @@
 import create from 'zustand'
-import { createBearSlice } from './slice/bearSlice.ts'
-import { createFishSlice } from './slice/fishSlice.ts'
+import { createBearSlice } from './slice/bearSlice.js'
+import { createFishSlice } from './slice/fishSlice.js'
 
-export const useStore = create((...a) => ({
+export interface BearSlice {
+  bears: number
+  addBear: () => void
+  eatFish: () => void
+}
+
+export interface FishSlice {
+  fishes: number
+  addFish: () => void
+}
+
+export const useStore = create<BearSlice & FishSlice>()((...a) => ({
   ...createBearSlice(...a),
   ...createFishSlice(...a),
 }))
