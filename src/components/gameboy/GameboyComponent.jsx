@@ -44,10 +44,13 @@ import useSound from "use-sound";
 import gameBoySong from "../../assets/sounds/gameBoySong.mp3";
 import AnimatedTextGameboy from "../animatedTextGameboy/AnimatedTextGameboy";
 import { useEffect } from "react";
+import { useStore } from "../../store/useStore.ts";
 
 export default function GameboyComponent() {
+  const setMooveUp = useStore((state) => state.setMooveUp);
+  const setMooveDown = useStore((state) => state.setMooveDown);
+  const setEnter = useStore((state) => state.setEnter);
   const [on, setOn] = useState(false);
-  const [carret, setCarret] = useState(false);
   const [play] = useSound(gameBoySong, { volume: 0.03 });
 
   const gameBoyOn = () => {
@@ -69,14 +72,6 @@ export default function GameboyComponent() {
       document.removeEventListener("keydown", keyDownHandler);
     };
   }, [play]);
-
-  const mooveNavCaret = () => {
-    console.log(carret);
-    setCarret((prev) => !prev);
-    console.log(carret);
-    setCarret((prev) => !prev);
-    console.log(carret);
-  };
 
   return (
     <Gameboy>
@@ -110,13 +105,13 @@ export default function GameboyComponent() {
       <Controls>
         <Dpad>
           <Up>
-            <AiFillCaretUp onClick={() => mooveNavCaret()} />
+            <AiFillCaretUp onClick={() => setMooveUp()} />
           </Up>
           <Right>
             <AiFillCaretRight />
           </Right>
           <Down>
-            <AiFillCaretDown onClick={() => mooveNavCaret()} />
+            <AiFillCaretDown onClick={() => setMooveDown()} />
           </Down>
           <Left>
             <AiFillCaretLeft />
@@ -126,6 +121,7 @@ export default function GameboyComponent() {
         <AB>
           <B>B</B>
           <A>A</A>
+          <A onClick={() => setEnter()}>A</A>
         </AB>
       </Controls>
 

@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { NavTextUl } from "./navGameboy.style";
 import { useEffect, useReducer } from "react";
 import useKeyPress from "../../hooks/useKeyPress";
+import { useStore } from "../../store/useStore.js";
 
 const initialState = { selectedIndex: 0 };
 export const list = ["gallery", "safari", "box"];
@@ -32,6 +33,12 @@ const reducer = (state: { selectedIndex: number }, action: Action) => {
 };
 
 export default function NavGameBoy() {
+  const mooveUp = useStore((state) => state.mooveUp);
+  const mooveDown = useStore((state) => state.mooveDown);
+  const enter = useStore((state) => state.enter);
+  const setMooveUp = useStore((state) => state.setMooveUp);
+  const setMooveDown = useStore((state) => state.setMooveDown);
+  const setEnter = useStore((state) => state.setEnter);
   const arrowUpPressed = useKeyPress("ArrowUp");
   const arrowDownPressed = useKeyPress("ArrowDown");
   const enterPressed = useKeyPress("Enter");
@@ -39,22 +46,25 @@ export default function NavGameBoy() {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    if (arrowUpPressed) {
+    if (arrowUpPressed || mooveUp) {
       dispatch({ type: "arrowUp" });
+      mooveUp && setMooveUp();
     }
-  }, [arrowUpPressed]);
+  }, [arrowUpPressed, mooveUp]);
 
   useEffect(() => {
-    if (arrowDownPressed) {
+    if (arrowDownPressed || mooveDown) {
       dispatch({ type: "arrowDown" });
+      mooveDown && setMooveDown();
     }
-  }, [arrowDownPressed]);
+  }, [arrowDownPressed, mooveDown]);
 
   useEffect(() => {
-    if (enterPressed) {
+    if (enterPressed || enter) {
       navigateTo(`${pages[state.selectedIndex]}`);
+      enter && setEnter();
     }
-  }, [enterPressed]);
+  }, [enterPressed, enter]);
 
   return (
     <NavTextUl>
