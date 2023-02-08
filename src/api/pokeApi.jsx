@@ -14,7 +14,19 @@ export const fetchPokemons = async ({
   );
 };
 
-export const getPokemon = async (id) => {
-  const response = await axios.get`https://pokeapi.co/api/v2/pokemon/${id}`;
-  return response.data;
+export const getPokemon = async (pokemon) => {
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+  const data = await response.json();
+  return data;
 };
+
+// export const getPokemon = async (pokemon, boxPokemon) => {
+//   return Promise.all(
+//     boxPokemon.map(async (pokemon) => {
+//       const result = await axios.get(
+//         `https://pokeapi.co/api/v2/pokemon/${pokemon}`
+//       );
+//       return result.data;
+//     })
+//   );
+// };

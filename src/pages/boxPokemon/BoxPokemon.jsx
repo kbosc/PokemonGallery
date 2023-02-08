@@ -1,30 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
-import React from "react";
+import { CatchedPokemon } from "../../components/catchedPokemon/CatchedPokemon";
+import React, { useEffect } from "react";
 
 export default function BoxPokemon() {
-  const boxPokemon = JSON.parse(localStorage.getItem("storagePokemon"));
+  let boxPokemon = JSON.parse(localStorage.getItem("storagePokemon"));
 
-  const queryKey = ["boxPokemon"];
-  const { isLoading, data } = useQuery(queryKey, () => {
-    boxPokemon?.map((pokemon) => {
-      console.log("pokemon:", pokemon);
-      return getPokemon(pokemon);
-    });
+  // useQuery to get the pokemon data
+  const { isLoading, data } = useQuery([`boxPokemon-${boxPokemon}`], () => {
+    return Promise.all(
+      boxPokemon.map(async (pokemon) => {
+        const result = await getPokemon(pokemon);
+        return result;
+      })
+    );
   });
-  console.log("data", data);
-  const pokemons = data || [];
 
-  console.log(pokemons);
-
+  // if the pokemon is loading, return a spinner
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  // if the pokemon is not in the box, return a message
   if (!boxPokemon) {
     return <div>Tu n'as pas encore attraper de Pokémon !</div>;
+  } else {
+    console.log(data, "data");
+    return (
+      <div>
+        {data.map((pokemon, i) => (
+          <CatchedPokemon key={i} data={pokemon} />
+        ))}
+      </div>
+    );
   }
-  return (
-    <div>
-      {boxPokemon.map((pokemon, i) => (
-        <span key={i}>{pokemon}</span>
-      ))}
-    </div>
-  );
 }
