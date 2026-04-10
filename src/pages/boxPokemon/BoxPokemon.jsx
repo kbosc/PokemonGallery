@@ -18,17 +18,17 @@ export default function BoxPokemon() {
   const boxPokemon = readStoredPokemonIds();
 
   // useQuery to get the pokemon data — only when we actually have ids
-  const { isLoading, data } = useQuery(
-    [`boxPokemon-${boxPokemon}`],
-    () =>
+  const { isLoading, data } = useQuery({
+    queryKey: [`boxPokemon-${boxPokemon}`],
+    queryFn: () =>
       Promise.all(
         boxPokemon.map(async (pokemon) => {
           const result = await getPokemon(pokemon);
           return result;
         })
       ),
-    { enabled: boxPokemon !== null }
-  );
+    enabled: boxPokemon !== null,
+  });
 
   // Empty state: no captures yet
   if (!boxPokemon) {

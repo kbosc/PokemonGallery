@@ -10,7 +10,7 @@ import useIntersectionObserver from "../../hooks/useIntersectionOberserver";
 import { ButtonStyled } from "../../assets/styles/theme";
 import { fetchPokemons } from "../../api/pokeApi";
 import Spinner from "../../components/spinner/Spinner.jsx";
-import PokemonCard from "../../components/pokemonCard/pokemonCard";
+import PokemonCard from "../../components/pokemonCard/PokemonCard";
 
 export default function PokemonGallery() {
   const {
@@ -21,7 +21,10 @@ export default function PokemonGallery() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery(["pokemon"], fetchPokemons, {
+  } = useInfiniteQuery({
+    queryKey: ["pokemon"],
+    queryFn: fetchPokemons,
+    initialPageParam: "https://pokeapi.co/api/v2/pokemon?offset=0&limit=20",
     getNextPageParam: (lastPage) => lastPage[lastPage.length - 1].nextPage,
   });
 

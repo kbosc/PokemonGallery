@@ -1,18 +1,5 @@
-import create from 'zustand'
-import { createBearSlice } from './slice/bearSlice.js'
-import { createFishSlice } from './slice/fishSlice.js'
-import { createGameboySlice } from './slice/gameboySlice.js'
-
-export interface BearSlice {
-  bears: number
-  addBear: () => void
-  eatFish: () => void
-}
-
-export interface FishSlice {
-  fishes: number
-  addFish: () => void
-}
+import { create } from 'zustand'
+import { createGameboySlice } from './slice/gameboySlice'
 
 export interface GameboySlice {
   mooveUp: boolean
@@ -23,8 +10,6 @@ export interface GameboySlice {
   setEnter: () => void
 }
 
-export const useStore = create<BearSlice & FishSlice & GameboySlice>()((...a) => ({
-  ...createBearSlice(...a),
-  ...createFishSlice(...a),
+export const useStore = create<GameboySlice>()((...a) => ({
   ...createGameboySlice(...a),
 }))

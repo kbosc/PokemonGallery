@@ -38,10 +38,14 @@ export default function PokemonCard({ id, name, image, type }: Props) {
   function addOrRemovePokemonLocalStorage(e: React.MouseEvent<HTMLButtonElement>) {
     const addPokemon = e.currentTarget.innerText;
 
-    let oldData = [];
+    let oldData: number[] = [];
 
     try {
-      oldData = JSON.parse(localStorage.getItem("storagePokemon")) as number[];
+      const raw = localStorage.getItem("storagePokemon");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) oldData = parsed as number[];
+      }
     } catch (err) {
       console.log("error", err);
     }

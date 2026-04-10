@@ -1,5 +1,5 @@
 import React from 'react'
-import { CheckBoxWrapper, Slider, Switch } from './CheckBoxRetro.style'
+import { CheckBoxWrapper, Slider, Switch } from './checkBoxRetro.style'
 
 export default function CheckBoxRetro() {
   return (

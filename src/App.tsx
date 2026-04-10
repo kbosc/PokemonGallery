@@ -1,6 +1,6 @@
 import { AppContainer } from "./app.style.jsx";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/header.jsx";
+import Header from "./components/header/Header.jsx";
 
 // Pages Components
 import BoxPokemon from "./pages/boxPokemon/BoxPokemon.jsx";
