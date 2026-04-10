@@ -1,10 +1,10 @@
 import styled, { keyframes, css } from "styled-components";
 
-// interface PokeballContainerProps {
-//   isSelected: boolean;
-// }
+interface SelectedProps {
+  isSelected: boolean;
+}
 
-export const PokeballContainer = styled.div`
+export const PokeballContainer = styled.div<SelectedProps>`
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -49,7 +49,7 @@ export const InnerCircle = styled.div`
   border: 4px solid ${(props) => props.theme.colors.black};
   transform: translate(-50%, -50%);
 `;
-export const IndicatorInner = styled.div`
+export const IndicatorInner = styled.div<SelectedProps>`
   border-radius: 50%;
   height: 20%;
   width: 20%;
@@ -60,7 +60,7 @@ export const IndicatorInner = styled.div`
   background: ${(props) =>
     props.isSelected ? props.theme.colors.red : "white"};
 `;
-export const Indicator = styled.div`
+export const Indicator = styled.div<SelectedProps>`
   border-radius: 50%;
   height: 80%;
   width: 80%;
