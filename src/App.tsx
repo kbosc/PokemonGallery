@@ -9,10 +9,6 @@ import SafariPokemon from "./pages/safariPokemon/SafariPokemon"
 import HomePokemon from "./pages/homePokemon/HomePokemon"
 
 function App() {
-  localStorage.getItem("storagePokemon") === null &&
-    localStorage.setItem("storagePokemon", "");
-    
-
   return (
     <AppContainer>
       <Header />

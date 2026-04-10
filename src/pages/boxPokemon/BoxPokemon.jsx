@@ -3,34 +3,47 @@ import { getPokemon } from "../../api/pokeApi";
 import { CatchedPokemon } from "../../components/catchedPokemon/CatchedPokemon";
 import React, { useEffect } from "react";
 
+function readStoredPokemonIds() {
+  const raw = localStorage.getItem("storagePokemon");
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0 ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
 export default function BoxPokemon() {
-  let boxPokemon = JSON.parse(localStorage.getItem("storagePokemon"));
+  const boxPokemon = readStoredPokemonIds();
 
-  // useQuery to get the pokemon data
-  const { isLoading, data } = useQuery([`boxPokemon-${boxPokemon}`], () => {
-    return Promise.all(
-      boxPokemon.map(async (pokemon) => {
-        const result = await getPokemon(pokemon);
-        return result;
-      })
-    );
-  });
+  // useQuery to get the pokemon data — only when we actually have ids
+  const { isLoading, data } = useQuery(
+    [`boxPokemon-${boxPokemon}`],
+    () =>
+      Promise.all(
+        boxPokemon.map(async (pokemon) => {
+          const result = await getPokemon(pokemon);
+          return result;
+        })
+      ),
+    { enabled: boxPokemon !== null }
+  );
 
-  // if the pokemon is loading, return a spinner
+  // Empty state: no captures yet
+  if (!boxPokemon) {
+    return <div>Tu n'as pas encore attraper de Pokémon !</div>;
+  }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  // if the pokemon is not in the box, return a message
-  if (!boxPokemon) {
-    return <div>Tu n'as pas encore attraper de Pokémon !</div>;
-  } else {
-    console.log(data, "data");
-    return (
-      <div>
-        {data.map((pokemon, i) => (
-          <CatchedPokemon key={i} data={pokemon} />
-        ))}
-      </div>
-    );
-  }
+
+  return (
+    <div>
+      {data.map((pokemon, i) => (
+        <CatchedPokemon key={i} data={pokemon} />
+      ))}
+    </div>
+  );
 }
