@@ -6,9 +6,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import App from "./App";
 import "./assets/styles/variables.css";
 import "./assets/styles/globals.css";
-import { GlobalStyles } from "./assets/styles/globalStyles";
-import { ThemeDefault } from "./assets/styles/theme";
-import { ThemeProvider } from "styled-components";
 
 import { BrowserRouter } from "react-router-dom";
 
@@ -25,10 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
-        <ThemeProvider theme={ThemeDefault}>
-          <GlobalStyles />
-          <App />
-        </ThemeProvider>
+        <App />
       </React.StrictMode>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
