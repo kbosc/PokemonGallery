@@ -1,15 +1,6 @@
 import { useState } from "react";
 import NavGameBoy from "../navGameboy/NavGameboy";
-import {
-  A,
-  AnimatedTextContainer,
-  B,
-  E,
-  G,
-  M,
-  O,
-  Y,
-} from "./animatedTextGameboy.style";
+import styles from "./animatedTextGameboy.module.css";
 
 export default function AnimatedTextGameboy() {
   const [display, setDisplay] = useState(true);
@@ -21,19 +12,19 @@ export default function AnimatedTextGameboy() {
   return (
     <div>
       {display ? (
-        <AnimatedTextContainer $propsDisplay={display}>
+        <div className={styles.container}>
           <div>
-            <G>G</G>
-            <A>A</A>
-            <M>M</M>
-            <E>E</E>
+            <span className={styles.letterG}>G</span>
+            <span className={styles.letterA}>A</span>
+            <span className={styles.letterM}>M</span>
+            <span className={styles.letterE}>E</span>
             <span> </span>
-            <B>B</B>
-            <O>O</O>
-            <Y>Y</Y>
+            <span className={styles.letterB}>B</span>
+            <span className={styles.letterO}>O</span>
+            <span className={styles.letterY}>Y</span>
           </div>
           <span>Nintendo </span>
-        </AnimatedTextContainer>
+        </div>
       ) : (
         <NavGameBoy />
       )}

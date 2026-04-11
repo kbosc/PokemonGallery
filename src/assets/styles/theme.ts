@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 // ThemeDefault is kept during the styled-components → CSS Modules migration.
 // It will be removed in Phase 3.7 once ThemeProvider is dropped.
 export const ThemeDefault = {
@@ -22,8 +20,3 @@ export const ThemeDefault = {
 } as const;
 
 export type AppTheme = typeof ThemeDefault;
-
-export const ContainerButton = styled.div`
-  display: flex;
-  justify-content: center;
-`;

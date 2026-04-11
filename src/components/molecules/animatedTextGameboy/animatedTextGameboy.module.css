@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 6.5rem;
+  align-items: center;
+  padding-top: 7rem;
+  animation: fadeOut 200ms 3800ms linear;
+}
+
+.letter {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.letterG {
+  composes: letter;
+  animation: color 3s linear, moverG 1s linear;
+}
+
+.letterA {
+  composes: letter;
+  animation: color 3s 0.1s linear, moverG 1s 0.1s linear;
+}
+
+.letterM {
+  composes: letter;
+  animation: color 3s 0.2s linear, moverG 1s 0.2s linear;
+}
+
+.letterE {
+  composes: letter;
+  animation: color 3s 0.3s linear, moverG 1s 0.3s linear;
+}
+
+.letterB {
+  composes: letter;
+  animation: color 3s 0.4s linear, moverG 1s 0.4s linear;
+}
+
+.letterO {
+  composes: letter;
+  animation: color 3s 0.5s linear, moverG 1s 0.5s linear;
+}
+
+.letterY {
+  composes: letter;
+  animation: color 3s 0.6s linear, moverG 1s 0.6s linear;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes color {
+  16% {
+    color: pink;
+  }
+  32% {
+    color: red;
+  }
+  48% {
+    color: orange;
+  }
+  64% {
+    color: yellow;
+  }
+  80% {
+    color: green;
+  }
+  100% {
+    color: #66ffff;
+  }
+}
+
+@keyframes moverG {
+  0% {
+    transform: translate(-30px, 50px) scale(1.5);
+    opacity: 0;
+  }
+  10% {
+    transform: translate(-20px, -30px) scale(4);
+  }
+  20% {
+    transform: translate(-10px, -20px) scale(3);
+  }
+  30% {
+    transform: translate(-5px, -10px) scale(2);
+  }
+  40% {
+    transform: translate(-2px, -4px) scale(2);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(0px, 0px) scale(1.5);
+  }
+  60% {
+    transform: translate(0px, 0px) scale(1.5);
+  }
+  70% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}

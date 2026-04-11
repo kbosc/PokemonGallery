@@ -1,13 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-const CardfadeIn = keyframes`
-   to {
-      transform: translateY(0);
-      opacity: 1;
-  }
-`;
-
-export const CardContainer = styled.div`
+.cardContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,17 +10,28 @@ export const CardContainer = styled.div`
   background-color: white;
   opacity: 0;
   transform: translateY(-10px);
-  animation: ${CardfadeIn} 0.4s ease-out forwards;
-` as "div";
+  animation: cardFadeIn 0.4s ease-out forwards;
+}
 
-export const CardButton = styled.button`
+.cardButton {
   padding: 1px 0px;
   margin: 1rem;
   background: none;
   color: inherit;
   border: none;
-  /* padding: 0; */
   font: inherit;
   cursor: grab;
   outline: inherit;
-` as "button";
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes cardFadeIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

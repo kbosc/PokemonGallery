@@ -1,8 +1,7 @@
 import Pokeball from "../../atoms/pokeball/Pokeball";
 import Button from "../../atoms/button/Button";
-import { ContainerButton } from "../../../assets/styles/theme";
-import { CardContainer, CardButton } from "./pokemonCard.style";
 import { useCapturedPokemon } from "../../../hooks/useCapturedPokemon";
+import styles from "./pokemonCard.module.css";
 
 interface Props {
   id: number;
@@ -15,20 +14,20 @@ export default function PokemonCard({ id, name, image, type }: Props) {
   const { caught, selected, capture, release } = useCapturedPokemon(id);
 
   return (
-    <CardContainer>
+    <div className={styles.cardContainer}>
       <span>#{id}</span>
       <span>{name}</span>
       <img src={image} alt={name} />
       <span>Type: {type}</span>
-      <ContainerButton>
+      <div className={styles.buttonRow}>
         {!caught ? (
-          <CardButton onClick={capture}>
+          <button className={styles.cardButton} onClick={capture}>
             <Pokeball selected={selected} />
-          </CardButton>
+          </button>
         ) : (
           <Button onClick={release}>Relacher</Button>
         )}
-      </ContainerButton>
-    </CardContainer>
+      </div>
+    </div>
   );
 }

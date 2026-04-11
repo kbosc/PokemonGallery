@@ -1,8 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { NavTextUl } from "./navGameboy.style";
 import { useEffect, useReducer } from "react";
 import useKeyPress from "../../../hooks/useKeyPress";
 import { useStore } from "../../../store/useStore";
+import styles from "./navGameboy.module.css";
 
 const initialState = { selectedIndex: 0 };
 export const list = ["gallery", "safari", "box"];
@@ -67,7 +67,7 @@ export default function NavGameBoy() {
   }, [enterPressed, enter]);
 
   return (
-    <NavTextUl>
+    <ul className={styles.navTextUl}>
       {list.map((item, i) => (
         <li
           key={item}
@@ -83,6 +83,6 @@ export default function NavGameBoy() {
           <NavLink to={pages[i]}>{item}</NavLink>
         </li>
       ))}
-    </NavTextUl>
+    </ul>
   );
 }
