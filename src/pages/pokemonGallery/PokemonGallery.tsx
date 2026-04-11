@@ -1,11 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 
-import {
-  ContainerButton,
-  GalleryContainer,
-  CardContainer,
-} from "./pokemonGallery.style";
+import styles from "./pokemonGallery.module.css";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { fetchPokemons } from "../../api/pokeApi";
 import Spinner from "../../components/atoms/spinner/Spinner";
@@ -43,8 +39,8 @@ export default function PokemonGallery() {
   }
 
   return (
-    <GalleryContainer>
-      <CardContainer>
+    <main className={styles.gallery}>
+      <div className={styles.cardContainer}>
         {isLoading || !data ? (
           [...Array(nTimesSpinner)].map((_, i) => <Spinner key={i} />)
         ) : (
@@ -60,8 +56,8 @@ export default function PokemonGallery() {
             ))
           )
         )}
-      </CardContainer>
-      <ContainerButton>
+      </div>
+      <div className={styles.buttonRow}>
         <Button
           ref={loadMoreButtonRef}
           onClick={() => fetchNextPage()}
@@ -73,7 +69,7 @@ export default function PokemonGallery() {
             ? "Load More"
             : "Nothing more to load"}
         </Button>
-      </ContainerButton>
-    </GalleryContainer>
+      </div>
+    </main>
   );
 }

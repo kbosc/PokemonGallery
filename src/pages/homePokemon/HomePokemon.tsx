@@ -1,10 +1,10 @@
 import GameboyComponent from "../../components/organisms/gameboy/GameboyComponent";
-import { HomeContainer } from "./homePokemon.style";
+import styles from "./homePokemon.module.css";
 
 export default function HomePokemon() {
   return (
-    <HomeContainer>
+    <div className={styles.container}>
       <GameboyComponent />
-    </HomeContainer>
+    </div>
   );
 }

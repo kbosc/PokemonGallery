@@ -1,0 +1,19 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  color: black;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center;
+}
