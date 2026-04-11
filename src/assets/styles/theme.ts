@@ -1,26 +1,5 @@
 import styled from "styled-components";
 
-
-// interface ThemeDefaultProps {
-//   theme: {
-//     colors?: {
-//       gameboyTxt?: string,
-//       text?: string,
-//       primary?: string,
-//       pLight?: string,
-//       pDark?: string,
-//       secondary?: string,
-//       sLight?: string,
-//       mDark?: string,
-//       red?: string,
-//       black?: string,
-//     },
-//     fontSize?: {
-//       title?: string,
-//       paragraph?: string,
-//     },
-//   }
-// }
 export const ThemeDefault = {
   colors: {
     gameboyTxt: "#67879a",
@@ -38,7 +17,9 @@ export const ThemeDefault = {
     title: "18px",
     paragraph: "12px",
   },
-};
+} as const;
+
+export type AppTheme = typeof ThemeDefault;
 
 export const ButtonStyled = styled.button`
   transition: box-shadow 0.1s ease;

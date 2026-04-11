@@ -44,7 +44,7 @@ import useSound from "use-sound";
 import gameBoySong from "../../assets/sounds/gameBoySong.mp3";
 import AnimatedTextGameboy from "../animatedTextGameboy/AnimatedTextGameboy";
 import { useEffect } from "react";
-import { useStore } from "../../store/useStore.ts";
+import { useStore } from "../../store/useStore";
 
 export default function GameboyComponent() {
   const setMooveUp = useStore((state) => state.setMooveUp);
@@ -59,7 +59,7 @@ export default function GameboyComponent() {
   };
 
   useEffect(() => {
-    const keyDownHandler = (event) => {
+    const keyDownHandler = (event: KeyboardEvent) => {
       if (event.key === "s" || event.key === "S") {
         event.preventDefault();
         gameBoyOn();

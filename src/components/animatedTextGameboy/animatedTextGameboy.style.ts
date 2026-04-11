@@ -9,7 +9,7 @@ const fadeOut = keyframes`
 100% { opacity: 0; }
 `;
 
-export const AnimatedTextContainer = styled.div`
+export const AnimatedTextContainer = styled.div<{ $propsDisplay?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 6.5rem;

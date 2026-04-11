@@ -1,9 +1,9 @@
-import { AppContainer } from "./app.style.jsx";
+import { AppContainer } from "./app.style";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/Header.jsx";
+import Header from "./components/header/Header";
 
 // Pages Components
-import BoxPokemon from "./pages/boxPokemon/BoxPokemon.jsx";
+import BoxPokemon from "./pages/boxPokemon/BoxPokemon";
 import PokemonGallery from "./pages/pokemonGallery/PokemonGallery";
 import SafariPokemon from "./pages/safariPokemon/SafariPokemon"
 import HomePokemon from "./pages/homePokemon/HomePokemon"

@@ -63,14 +63,14 @@ export const Indicator = styled.div`
   line-height: 14px;
 `;
 
-export const Led = styled.div`
+export const Led = styled.div<{ $on: boolean }>`
   position: relative;
   display: inline-block;
   background-color: #ca1a21;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  box-shadow: ${(props) => props.$on ? "0px 0px 10px #ff552e" : "" };
+  box-shadow: ${(props) => (props.$on ? "0px 0px 10px #ff552e" : "")};
   z-index: 5;
 `;
 
@@ -102,9 +102,9 @@ export const Arc = styled.div`
   }
 `;
 
-export const Display = styled.div`
+export const Display = styled.div<{ $on: boolean }>`
   /* position: relative; */
-  background-color: ${(props) => props.$on ? "#becbc4" : "#929d97"};
+  background-color: ${(props) => (props.$on ? "#becbc4" : "#929d97")};
   height: 190px;
   width: 210px;
   border-radius: 3px;
@@ -388,9 +388,10 @@ const sharedStartSelect = css`
   }
 `;
 
-export const Start = styled.div`
+export const Start = styled.div<{ $on?: boolean }>`
   ${sharedStartSelect}
-  box-shadow: ${(props) => props.on ? "0px 0px 10px #ff552e" : "0px 0px 10px green"};
+  box-shadow: ${(props) =>
+    props.$on ? "0px 0px 10px #ff552e" : "0px 0px 10px green"};
 `;
 export const Select = styled.div`
   ${sharedStartSelect}
@@ -425,14 +426,6 @@ export const Dot = styled.div`
   height: 7px;
   margin: 1px;
   border-radius: 50%;
-  /* background-color: ${(props) =>
-    props.placeholder ? "transparent" : `#0a0717`};
-  box-shadow: ${(props) =>
-    props.placeholder ? "" : `0px 0px 2px #7c7be0 inset`};
-  background: ${(props) =>
-    props.closed
-      ? "linear-gradient(to bottom, #6664e5 0%, #2d3590 100%);"
-      : ``}; */
 `;
 
 //   * { box-sizing:border-box; }

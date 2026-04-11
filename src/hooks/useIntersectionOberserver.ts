@@ -1,4 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, RefObject } from "react";
+
+interface UseIntersectionObserverParams {
+  root?: RefObject<Element | null>;
+  target: RefObject<Element | null>;
+  onIntersect: () => void;
+  threshold?: number;
+  rootMargin?: string;
+  enabled?: boolean;
+}
 
 export default function useIntersectionObserver({
   root,
@@ -7,7 +16,7 @@ export default function useIntersectionObserver({
   threshold = 1,
   rootMargin = "0px",
   enabled = false,
-}) {
+}: UseIntersectionObserverParams) {
   useEffect(() => {
     if (!enabled) {
       return;

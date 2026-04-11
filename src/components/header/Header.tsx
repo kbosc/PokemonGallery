@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderContainer, HeaderTitle, HeaderNav } from "./header.style";
 import { Link } from "react-router-dom";
 
-export default function header() {
+export default function Header() {
   return (
     <HeaderContainer>
       <HeaderTitle>Pokemon</HeaderTitle>

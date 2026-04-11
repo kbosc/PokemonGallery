@@ -17,7 +17,5 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  // try to remove error with audio file
-  "types": ["types.d.ts"]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

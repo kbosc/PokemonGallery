@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
 import { CatchedPokemon } from "../../components/catchedPokemon/CatchedPokemon";
-import React, { useEffect } from "react";
 
-function readStoredPokemonIds() {
+function readStoredPokemonIds(): number[] | null {
   const raw = localStorage.getItem("storagePokemon");
   if (!raw) return null;
   try {
@@ -21,12 +20,7 @@ export default function BoxPokemon() {
   const { isLoading, data } = useQuery({
     queryKey: [`boxPokemon-${boxPokemon}`],
     queryFn: () =>
-      Promise.all(
-        boxPokemon.map(async (pokemon) => {
-          const result = await getPokemon(pokemon);
-          return result;
-        })
-      ),
+      Promise.all((boxPokemon ?? []).map((pokemon) => getPokemon(pokemon))),
     enabled: boxPokemon !== null,
   });
 
@@ -35,7 +29,7 @@ export default function BoxPokemon() {
     return <div>Tu n'as pas encore attraper de Pokémon !</div>;
   }
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <div>Loading...</div>;
   }
 
