@@ -1,8 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { NavTextUl } from "./navGameboy.style";
 import { useEffect, useReducer } from "react";
-import useKeyPress from "../../hooks/useKeyPress";
-import { useStore } from "../../store/useStore.js";
+import useKeyPress from "../../../hooks/useKeyPress";
+import { useStore } from "../../../store/useStore";
 
 const initialState = { selectedIndex: 0 };
 export const list = ["gallery", "safari", "box"];

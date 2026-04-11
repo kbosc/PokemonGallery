@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { screen, fireEvent, act } from '@testing-library/react';
 import PokemonCard from './PokemonCard';
-import { renderWithProviders } from '../../test/renderWithProviders';
+import { renderWithProviders } from '../../../test/renderWithProviders';
 
 vi.mock('use-sound', () => ({
   default: () => [() => {}],

@@ -40,10 +40,10 @@ import {
 } from "react-icons/ai";
 import { useState } from "react";
 import useSound from "use-sound";
-import gameBoySong from "../../assets/sounds/gameBoySong.mp3";
-import AnimatedTextGameboy from "../animatedTextGameboy/AnimatedTextGameboy";
+import gameBoySong from "../../../assets/sounds/gameBoySong.mp3";
+import AnimatedTextGameboy from "../../molecules/animatedTextGameboy/AnimatedTextGameboy";
 import { useEffect } from "react";
-import { useStore } from "../../store/useStore";
+import { useStore } from "../../../store/useStore";
 
 export default function GameboyComponent() {
   const setMooveUp = useStore((state) => state.setMooveUp);

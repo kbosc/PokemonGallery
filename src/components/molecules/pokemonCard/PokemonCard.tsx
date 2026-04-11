@@ -1,7 +1,7 @@
-import Pokeball from "../pokeball/Pokeball";
-import { ButtonStyled, ContainerButton } from "../../assets/styles/theme";
+import Pokeball from "../../atoms/pokeball/Pokeball";
+import { ButtonStyled, ContainerButton } from "../../../assets/styles/theme";
 import { CardContainer, CardButton } from "./pokemonCard.style";
-import { useCapturedPokemon } from "../../hooks/useCapturedPokemon";
+import { useCapturedPokemon } from "../../../hooks/useCapturedPokemon";
 
 interface Props {
   id: number;

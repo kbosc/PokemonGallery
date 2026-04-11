@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
-import { CaughtPokemon } from "../../components/caughtPokemon/CaughtPokemon";
+import { CaughtPokemon } from "../../components/molecules/caughtPokemon/CaughtPokemon";
 
 function readStoredPokemonIds(): number[] | null {
   const raw = localStorage.getItem("storagePokemon");

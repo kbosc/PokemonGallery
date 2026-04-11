@@ -9,8 +9,8 @@ import {
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { ButtonStyled } from "../../assets/styles/theme";
 import { fetchPokemons } from "../../api/pokeApi";
-import Spinner from "../../components/spinner/Spinner";
-import PokemonCard from "../../components/pokemonCard/PokemonCard";
+import Spinner from "../../components/atoms/spinner/Spinner";
+import PokemonCard from "../../components/molecules/pokemonCard/PokemonCard";
 
 export default function PokemonGallery() {
   const {
