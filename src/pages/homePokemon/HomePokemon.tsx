@@ -1,4 +1,3 @@
-import React from "react";
 import GameboyComponent from "../../components/gameboy/GameboyComponent";
 import { HomeContainer } from "./homePokemon.style";
 

@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
-// @ts-ignore
 import pokemonCaughtSound from "../assets/sounds/catchPokemon.mp3";
 import { catchRandomize } from "../utils/catchRandomize";
 

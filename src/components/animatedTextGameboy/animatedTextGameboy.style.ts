@@ -1,9 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 
-// const fadeIn = keyframes`
-// 0% { opacity: 0; }
-// 100% { opacity: 1; }
-// `;
 const fadeOut = keyframes`
 0% { opacity: 1; }
 100% { opacity: 0; }
@@ -15,9 +11,6 @@ export const AnimatedTextContainer = styled.div<{ $propsDisplay?: boolean }>`
   gap: 6.5rem;
   align-items: center;
   padding-top: 7rem;
-  /* position: absolute;
-    top: 8rem;
-    left: 4.5rem; */
   animation: ${fadeOut} 200ms 3800ms linear;
 `;
 

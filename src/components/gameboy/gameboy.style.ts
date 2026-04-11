@@ -427,10 +427,3 @@ export const Dot = styled.div`
   margin: 1px;
   border-radius: 50%;
 `;
-
-//   * { box-sizing:border-box; }
-//   html, body { width:100%; height:100%; margin:0; }
-//   body { padding:30px; display:flex; justify-content:center; align-items:center; background: linear-gradient(to top, #aaa 0%, white 100%);}
-//   .gameboy {
-//     margin:0 auto;
-//   }

@@ -16,7 +16,6 @@ const updateCaughtState = (caught: Dispatch<SetStateAction<boolean>>) => {
 export const catchRandomize = (oldData: number[], id: number, selected : Dispatch<SetStateAction<boolean>>, caught: Dispatch<SetStateAction<boolean>>) => {
   updateSelectedState(selected);
   const random = Math.floor(Math.random() * 10 + 1);
-  console.log(random);
   if (random > 3) {
     oldData.push(id);
     updateCaughtState(caught);

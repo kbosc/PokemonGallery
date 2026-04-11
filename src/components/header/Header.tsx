@@ -1,4 +1,3 @@
-import React from "react";
 import { HeaderContainer, HeaderTitle, HeaderNav } from "./header.style";
 import { Link } from "react-router-dom";
 
