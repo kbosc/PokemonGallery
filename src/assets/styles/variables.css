@@ -1,0 +1,17 @@
+:root {
+  /* Colors */
+  --color-gameboy-txt: #67879a;
+  --color-text: #2c3e50;
+  --color-primary: #2970b8;
+  --color-primary-light: #659deb;
+  --color-primary-dark: #004588;
+  --color-secondary: #f2d147;
+  --color-secondary-light: #ffff79;
+  --color-secondary-dark: #bca004;
+  --color-red: #f15324;
+  --color-black: #333;
+
+  /* Font sizes */
+  --fs-title: 18px;
+  --fs-paragraph: 12px;
+}

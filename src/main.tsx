@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import App from "./App";
+import "./assets/styles/variables.css";
+import "./assets/styles/globals.css";
 import { GlobalStyles } from "./assets/styles/globalStyles";
 import { ThemeDefault } from "./assets/styles/theme";
 import { ThemeProvider } from "styled-components";
