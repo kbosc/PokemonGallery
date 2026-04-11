@@ -1,12 +1,12 @@
-import { CheckBoxWrapper, Slider, Switch } from './checkBoxRetro.style'
+import styles from "./checkBoxRetro.module.css";
 
 export default function CheckBoxRetro() {
   return (
-    <CheckBoxWrapper>
-        <Switch>
+    <div className={styles.wrapper}>
+      <label className={styles.switch}>
         <input type="checkbox" />
-        <Slider />
-        </Switch>
-    </CheckBoxWrapper>
-  )
+        <span className={styles.slider} />
+      </label>
+    </div>
+  );
 }
