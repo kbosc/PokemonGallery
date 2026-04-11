@@ -32,16 +32,6 @@ describe('PokemonCard (smoke)', () => {
     expect(screen.queryByText(/relacher/i)).not.toBeInTheDocument();
 
     const captureButton = screen.getByRole('button');
-    // The current handler branches on `e.currentTarget.innerText` to decide
-    // between capture vs release. jsdom does not lay out elements, so
-    // `innerText` on a button whose children are all styled divs is `undefined`,
-    // which makes the handler take the wrong branch. We patch innerText here
-    // as a test-only workaround. This fragility is exactly why we'll refactor
-    // this component in Phase 2 (replace the text check with a state-based one).
-    Object.defineProperty(captureButton, 'innerText', {
-      value: '',
-      configurable: true,
-    });
     fireEvent.click(captureButton);
 
     // catchRandomize pushes the id into oldData synchronously,
