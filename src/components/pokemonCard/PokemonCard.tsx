@@ -6,7 +6,7 @@ import Pokeball from "../pokeball/Pokeball";
 
 import useSound from "use-sound";
 // @ts-ignore
-import pokemonCatched from "../../assets/sounds/catchPokemon.mp3";
+import pokemonCaught from "../../assets/sounds/catchPokemon.mp3";
 
 
 
@@ -23,17 +23,17 @@ interface Props {
 
 export default function PokemonCard({ id, name, image, type }: Props) {
   const [selected, setSelected] = useState<boolean>(false);
-  const [catched, setCatched] = useState(false);
-  const [play] = useSound(pokemonCatched, { volume: 0.03 });
+  const [caught, setCaught] = useState(false);
+  const [play] = useSound(pokemonCaught, { volume: 0.03 });
 
   useEffect(() => {
     const localStringify = localStorage.getItem("storagePokemon");
-    if (catched) {
+    if (caught) {
       play();
     }
     if (!localStringify) return;
-    return setCatched(JSON.parse(localStringify).includes(id));
-  }, [localStorage, catched]);
+    return setCaught(JSON.parse(localStringify).includes(id));
+  }, [localStorage, caught]);
 
   function addOrRemovePokemonLocalStorage(e: React.MouseEvent<HTMLButtonElement>) {
     const addPokemon = e.currentTarget.innerText;
@@ -52,11 +52,11 @@ export default function PokemonCard({ id, name, image, type }: Props) {
     console.log(oldData);
     if (addPokemon === "") {
       // if (!localStorage.getItem("storagePokemon").includes(id)) {
-      catchRandomize(oldData, id, setSelected, setCatched);
+      catchRandomize(oldData, id, setSelected, setCaught);
       // }
     } else {
       oldData = oldData.filter((ids: number) => ids !== id);
-      setCatched((prev: boolean) => !prev);
+      setCaught((prev: boolean) => !prev);
     }
     localStorage.setItem(
       "storagePokemon",
@@ -71,7 +71,7 @@ export default function PokemonCard({ id, name, image, type }: Props) {
       <img src={image} alt={name} />
       <span>Type: {type}</span>
       <ContainerButton>
-        {!catched ? (
+        {!caught ? (
           <CardButton onClick={addOrRemovePokemonLocalStorage}>
             <Pokeball selected={selected} />
           </CardButton>

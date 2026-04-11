@@ -48,7 +48,7 @@ describe('PokemonCard (smoke)', () => {
     // so localStorage is updated immediately.
     expect(JSON.parse(localStorage.getItem('storagePokemon') ?? '[]')).toContain(25);
 
-    // catchRandomize schedules the `catched` state flip after 1s via setTimeout
+    // catchRandomize schedules the `caught` state flip after 1s via setTimeout
     act(() => {
       vi.advanceTimersByTime(1500);
     });

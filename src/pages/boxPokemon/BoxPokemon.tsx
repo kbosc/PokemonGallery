@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
-import { CatchedPokemon } from "../../components/catchedPokemon/CatchedPokemon";
+import { CaughtPokemon } from "../../components/caughtPokemon/CaughtPokemon";
 
 function readStoredPokemonIds(): number[] | null {
   const raw = localStorage.getItem("storagePokemon");
@@ -36,7 +36,7 @@ export default function BoxPokemon() {
   return (
     <div>
       {data.map((pokemon, i) => (
-        <CatchedPokemon key={i} data={pokemon} />
+        <CaughtPokemon key={i} data={pokemon} />
       ))}
     </div>
   );

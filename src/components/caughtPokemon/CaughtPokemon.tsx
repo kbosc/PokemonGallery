@@ -27,7 +27,7 @@ type PokemonObject = {
   };
 };
 
-export const CatchedPokemon = ({ data }: PokemonObject) => {
+export const CaughtPokemon = ({ data }: PokemonObject) => {
   return (
     <div>
       <span>

@@ -6,7 +6,7 @@ import {
   GalleryContainer,
   CardContainer,
 } from "./pokemonGallery.style";
-import useIntersectionObserver from "../../hooks/useIntersectionOberserver";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { ButtonStyled } from "../../assets/styles/theme";
 import { fetchPokemons } from "../../api/pokeApi";
 import Spinner from "../../components/spinner/Spinner";
