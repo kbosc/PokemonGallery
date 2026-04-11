@@ -1,5 +1,6 @@
 import Pokeball from "../../atoms/pokeball/Pokeball";
-import { ButtonStyled, ContainerButton } from "../../../assets/styles/theme";
+import Button from "../../atoms/button/Button";
+import { ContainerButton } from "../../../assets/styles/theme";
 import { CardContainer, CardButton } from "./pokemonCard.style";
 import { useCapturedPokemon } from "../../../hooks/useCapturedPokemon";
 
@@ -25,7 +26,7 @@ export default function PokemonCard({ id, name, image, type }: Props) {
             <Pokeball selected={selected} />
           </CardButton>
         ) : (
-          <ButtonStyled onClick={release}>Relacher</ButtonStyled>
+          <Button onClick={release}>Relacher</Button>
         )}
       </ContainerButton>
     </CardContainer>

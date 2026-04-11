@@ -7,9 +7,9 @@ import {
   CardContainer,
 } from "./pokemonGallery.style";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-import { ButtonStyled } from "../../assets/styles/theme";
 import { fetchPokemons } from "../../api/pokeApi";
 import Spinner from "../../components/atoms/spinner/Spinner";
+import Button from "../../components/atoms/button/Button";
 import PokemonCard from "../../components/molecules/pokemonCard/PokemonCard";
 
 export default function PokemonGallery() {
@@ -62,7 +62,7 @@ export default function PokemonGallery() {
         )}
       </CardContainer>
       <ContainerButton>
-        <ButtonStyled
+        <Button
           ref={loadMoreButtonRef}
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
@@ -72,7 +72,7 @@ export default function PokemonGallery() {
             : hasNextPage
             ? "Load More"
             : "Nothing more to load"}
-        </ButtonStyled>
+        </Button>
       </ContainerButton>
     </GalleryContainer>
   );
