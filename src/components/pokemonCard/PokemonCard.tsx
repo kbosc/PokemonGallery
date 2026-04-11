@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { catchRandomize } from "../../utils/catchRandomize";
 import Pokeball from "../pokeball/Pokeball";
@@ -25,15 +25,30 @@ export default function PokemonCard({ id, name, image, type }: Props) {
   const [selected, setSelected] = useState<boolean>(false);
   const [caught, setCaught] = useState(false);
   const [play] = useSound(pokemonCaught, { volume: 0.03 });
+  // Tracks whether the next `caught === true` transition was triggered by a
+  // user action (vs. an initial sync from localStorage). Prevents the capture
+  // sound from playing on page load for already-captured pokemon.
+  const userInitiatedRef = useRef(false);
 
+  // Sync `caught` from localStorage on mount / when id changes.
   useEffect(() => {
-    const localStringify = localStorage.getItem("storagePokemon");
-    if (caught) {
-      play();
+    const raw = localStorage.getItem("storagePokemon");
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) setCaught(parsed.includes(id));
+    } catch {
+      // ignore malformed storage
     }
-    if (!localStringify) return;
-    return setCaught(JSON.parse(localStringify).includes(id));
-  }, [localStorage, caught]);
+  }, [id]);
+
+  // Play the capture sound only for user-initiated catches.
+  useEffect(() => {
+    if (caught && userInitiatedRef.current) {
+      play();
+      userInitiatedRef.current = false;
+    }
+  }, [caught, play]);
 
   function addOrRemovePokemonLocalStorage(e: React.MouseEvent<HTMLButtonElement>) {
     const addPokemon = e.currentTarget.innerText;
@@ -51,9 +66,8 @@ export default function PokemonCard({ id, name, image, type }: Props) {
     }
     console.log(oldData);
     if (addPokemon === "") {
-      // if (!localStorage.getItem("storagePokemon").includes(id)) {
+      userInitiatedRef.current = true;
       catchRandomize(oldData, id, setSelected, setCaught);
-      // }
     } else {
       oldData = oldData.filter((ids: number) => ids !== id);
       setCaught((prev: boolean) => !prev);
