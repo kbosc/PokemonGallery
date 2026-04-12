@@ -1,12 +1,11 @@
 {
-  "name": "vite-project",
+  "name": "pokemon-gallery",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run"
@@ -15,24 +14,22 @@
     "@tanstack/react-query": "^5.62.7",
     "@tanstack/react-query-devtools": "^5.62.7",
     "clsx": "^2.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "^15.5.15",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
     "react-icons": "^4.6.0",
-    "react-router-dom": "^7.1.1",
     "use-sound": "^4.0.1",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^14.1.2",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.5.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "jsdom": "^22.1.0",
+    "@svgr/webpack": "^8.1.0",
     "typescript": "^5.6.3",
-    "vite": "^6.0.7",
-    "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
   }
 }
