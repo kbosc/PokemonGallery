@@ -1,3 +1,6 @@
+// "use client" car on utilise useInfiniteQuery, useRef, IntersectionObserver.
+"use client";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -8,7 +11,7 @@ import Spinner from "../../components/atoms/spinner/Spinner";
 import Button from "../../components/atoms/button/Button";
 import PokemonCard from "../../components/molecules/pokemonCard/PokemonCard";
 
-export default function PokemonGallery() {
+export default function PokemonGalleryPage() {
   const {
     data,
     isLoading,
