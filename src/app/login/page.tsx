@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "../../lib/supabase/client";
+import PasswordInput from "../../components/atoms/passwordInput/PasswordInput";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
@@ -68,9 +69,8 @@ export default function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          className={styles.input}
-          type="password"
+        <PasswordInput
+          inputClassName={styles.input}
           placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

@@ -4,6 +4,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { createClient } from "../../lib/supabase/client";
+import PasswordInput from "../../components/atoms/passwordInput/PasswordInput";
 // On réutilise les mêmes styles que login — même design.
 import styles from "../login/login.module.css";
 
@@ -11,6 +12,7 @@ export default function SignupPage() {
   const [trainerName, setTrainerName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,6 +21,14 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    // Vérification que les deux mots de passe correspondent, avant
+    // de déclencher un quelconque appel réseau.
+    if (password !== confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      return;
+    }
+
     setLoading(true);
 
     // 1. Pré-check : le pseudo est-il déjà pris ?
@@ -97,12 +107,19 @@ export default function SignupPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          className={styles.input}
-          type="password"
+        <PasswordInput
+          inputClassName={styles.input}
           placeholder="Mot de passe (6 caractères min.)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          minLength={6}
+          required
+        />
+        <PasswordInput
+          inputClassName={styles.input}
+          placeholder="Confirmer le mot de passe"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           minLength={6}
           required
         />

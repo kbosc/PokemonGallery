@@ -32,7 +32,12 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      {/* suppressHydrationWarning : certaines extensions navigateur
+          (ColorZilla, Grammarly…) ajoutent des attributs au <body> côté
+          client, ce qui crée un mismatch d'hydratation inoffensif.
+          Ce flag n'ignore QUE les attributs directs du body, pas ses
+          enfants — donc nos vraies erreurs restent détectées. */}
+      <body suppressHydrationWarning>
         <Providers>
           <div className={styles.app}>
             <Header />
