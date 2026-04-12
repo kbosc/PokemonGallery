@@ -8,6 +8,7 @@ import { createClient } from "../../lib/supabase/client";
 import styles from "../login/login.module.css";
 
 export default function SignupPage() {
+  const [trainerName, setTrainerName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -20,14 +21,36 @@ export default function SignupPage() {
     setError(null);
     setLoading(true);
 
-    // signUp crée un nouveau compte dans Supabase :
-    // 1. Vérifie que l'email n'existe pas déjà
-    // 2. Hash le mot de passe (jamais stocké en clair)
-    // 3. Crée l'entrée dans auth.users
-    // 4. Envoie un email de confirmation (configurable dans le dashboard)
+    // 1. Pré-check : le pseudo est-il déjà pris ?
+    // On fait cette vérif AVANT le signUp pour afficher un message clair.
+    // Sans ça, l'erreur viendrait du trigger SQL (unique_violation) et
+    // ressemblerait à "Database error saving new user" — peu lisible.
+    // Petit risque de race condition (deux users qui s'inscrivent en même
+    // temps avec le même pseudo) mais la contrainte SQL UNIQUE garantit
+    // qu'il n'y aura jamais deux pseudos identiques en base.
+    const { data: existing } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("trainer_name", trainerName)
+      .maybeSingle();
+
+    if (existing) {
+      setError("Ce pseudo de dresseur est déjà pris.");
+      setLoading(false);
+      return;
+    }
+
+    // 2. Création du compte auth + transmission du pseudo au trigger SQL.
+    // `options.data` remplit `raw_user_meta_data` dans auth.users,
+    // que notre fonction handle_new_user() lit pour insérer dans profiles.
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          trainer_name: trainerName,
+        },
+      },
     });
 
     setLoading(false);
@@ -58,6 +81,16 @@ export default function SignupPage() {
       <form className={styles.form} onSubmit={handleSignup}>
         <input
           className={styles.input}
+          type="text"
+          placeholder="Pseudo de dresseur (3-20 caractères)"
+          value={trainerName}
+          onChange={(e) => setTrainerName(e.target.value)}
+          minLength={3}
+          maxLength={20}
+          required
+        />
+        <input
+          className={styles.input}
           type="email"
           placeholder="Email"
           value={email}
@@ -74,6 +107,9 @@ export default function SignupPage() {
           required
         />
         {error && <p className={styles.error}>{error}</p>}
+        <p className={styles.link}>
+          Tu pourras changer ton pseudo 2 fois plus tard.
+        </p>
         <button className={styles.submit} type="submit" disabled={loading}>
           {loading ? "Création..." : "Créer mon compte"}
         </button>
