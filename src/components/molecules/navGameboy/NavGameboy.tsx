@@ -1,4 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom";
+// "use client" obligatoire : ce composant utilise useReducer, useEffect,
+// useRouter (navigation programmatique) et zustand (state global).
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useReducer } from "react";
 import useKeyPress from "../../../hooks/useKeyPress";
 import { useStore } from "../../../store/useStore";
@@ -43,7 +48,9 @@ export default function NavGameBoy() {
   const arrowDownPressed = useKeyPress("ArrowDown");
   const enterPressed = useKeyPress("Enter");
   const [state, dispatch] = useReducer(reducer, initialState);
-  const navigateTo = useNavigate();
+  // useRouter de next/navigation remplace useNavigate de react-router.
+  // router.push("/url") = naviguer vers une page.
+  const router = useRouter();
 
   useEffect(() => {
     if (arrowUpPressed || mooveUp) {
@@ -61,7 +68,7 @@ export default function NavGameBoy() {
 
   useEffect(() => {
     if (enterPressed || enter) {
-      navigateTo(`${pages[state.selectedIndex]}`);
+      router.push(pages[state.selectedIndex]);
       enter && setEnter();
     }
   }, [enterPressed, enter]);
@@ -80,7 +87,7 @@ export default function NavGameBoy() {
             backgroundColor: i === state.selectedIndex ? "#ccc" : "",
           }}
         >
-          <NavLink to={pages[i]}>{item}</NavLink>
+          <Link href={pages[i]}>{item}</Link>
         </li>
       ))}
     </ul>

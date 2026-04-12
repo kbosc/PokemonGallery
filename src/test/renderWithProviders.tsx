@@ -1,15 +1,12 @@
-import { ReactElement, ReactNode } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter } from 'react-router-dom';
+import { ReactElement, ReactNode } from "react";
+import { render, RenderOptions } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-type ProviderOptions = Omit<RenderOptions, 'wrapper'> & {
-  route?: string;
-};
+type ProviderOptions = Omit<RenderOptions, "wrapper">;
 
 export function renderWithProviders(
   ui: ReactElement,
-  { route = '/', ...options }: ProviderOptions = {}
+  options: ProviderOptions = {}
 ) {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -21,9 +18,7 @@ export function renderWithProviders(
   });
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <MemoryRouter initialEntries={[route]}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </MemoryRouter>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 
   return render(ui, { wrapper: Wrapper, ...options });

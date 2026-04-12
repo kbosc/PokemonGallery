@@ -7,7 +7,9 @@ import {
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
 import clsx from "clsx";
-import gameBoySong from "../../../assets/sounds/gameBoySong.mp3";
+// Les sons sont dans public/sounds/ — on utilise le chemin URL directement.
+// Next.js sert automatiquement tout ce qui est dans public/ à la racine.
+const gameBoySong = "/sounds/gameBoySong.mp3";
 import AnimatedTextGameboy from "../../molecules/animatedTextGameboy/AnimatedTextGameboy";
 import { useStore } from "../../../store/useStore";
 import styles from "./gameboy.module.css";
