@@ -75,6 +75,11 @@ export const CaughtPokemon = ({ capture, data }: Props) => {
   const displayName = capture.nickname ?? data.name;
   const primaryType = data.types?.[0]?.type.name ?? "—";
   const sprite = data.sprites.other?.dream_world?.front_default;
+  // Le renommage est limité à 1 fois par instance (trigger DB qui
+  // décrémente nickname_changes_left). Le bouton "Renommer" disparaît
+  // quand le crédit est à 0 ; si malgré ça le front envoie une mutation,
+  // le trigger côté DB la rejettera.
+  const canRename = capture.nickname_changes_left > 0;
 
   const handleSubmitRename = (e: React.FormEvent) => {
     e.preventDefault();
@@ -111,6 +116,9 @@ export const CaughtPokemon = ({ capture, data }: Props) => {
               autoFocus
               aria-label="Nouveau surnom"
             />
+            <span className={styles.renameWarning}>
+              Ce renommage est définitif.
+            </span>
             <div className={styles.editActions}>
               <Button type="submit" disabled={renameMutation.isPending}>
                 OK
@@ -144,7 +152,9 @@ export const CaughtPokemon = ({ capture, data }: Props) => {
 
       {!editing && (
         <div className={styles.actions}>
-          <Button onClick={() => setEditing(true)}>Renommer</Button>
+          {canRename && (
+            <Button onClick={() => setEditing(true)}>Renommer</Button>
+          )}
           <Button
             onClick={() => releaseMutation.mutate()}
             disabled={releaseMutation.isPending}

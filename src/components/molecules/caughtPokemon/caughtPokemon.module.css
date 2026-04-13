@@ -76,3 +76,9 @@
   display: flex;
   gap: 0.4rem;
 }
+
+.renameWarning {
+  font-size: 1rem;
+  color: var(--color-red);
+  font-style: italic;
+}

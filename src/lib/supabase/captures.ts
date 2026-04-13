@@ -21,6 +21,10 @@ export type CapturedPokemon = {
   owner_id: string; // UUID du dresseur (FK vers auth.users)
   pokemon_id: number; // ID PokéAPI de l'espèce (1 = Bulbasaur, 25 = Pikachu…)
   nickname: string | null;
+  // Nombre de renommages restants pour CETTE instance. Décrémenté
+  // côté DB par le trigger enforce_nickname_rename_limit à chaque
+  // changement effectif du nickname. 0 → plus de renommage possible.
+  nickname_changes_left: number;
   is_shiny: boolean;
   caught_at: string; // ISO timestamp
 };

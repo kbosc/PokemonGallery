@@ -17,6 +17,7 @@ const makeCapture = (pokemon_id: number, suffix = "a") => ({
   owner_id: "fake-user",
   pokemon_id,
   nickname: null,
+  nickname_changes_left: 1,
   is_shiny: false,
   caught_at: new Date().toISOString(),
 });
