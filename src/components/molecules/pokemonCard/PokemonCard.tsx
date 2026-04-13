@@ -11,7 +11,8 @@ interface Props {
 }
 
 export default function PokemonCard({ id, name, image, type }: Props) {
-  const { caught, selected, capture, release } = useCapturedPokemon(id);
+  const { caught, selected, capture, release, instanceCount } =
+    useCapturedPokemon(id);
 
   return (
     <div className={styles.cardContainer}>
@@ -20,12 +21,21 @@ export default function PokemonCard({ id, name, image, type }: Props) {
       <img src={image} alt={name} />
       <span>Type: {type}</span>
       <div className={styles.buttonRow}>
-        {!caught ? (
-          <button className={styles.cardButton} onClick={capture}>
-            <Pokeball selected={selected} />
-          </button>
-        ) : (
-          <Button onClick={release}>Relacher</Button>
+        {/* Pokéball toujours présente : tu peux capturer plusieurs
+            instances du même pokémon (stackables en base). */}
+        <button
+          className={styles.cardButton}
+          onClick={capture}
+          aria-label={`Capturer ${name}`}
+        >
+          <Pokeball selected={selected} />
+        </button>
+        {/* Relâcher n'apparaît qu'à partir de 1 instance possédée.
+            Libère la plus ancienne (le choix précis arrivera en Box). */}
+        {caught && (
+          <Button onClick={release}>
+            Relâcher{instanceCount > 1 ? ` (${instanceCount})` : ""}
+          </Button>
         )}
       </div>
     </div>

@@ -42,20 +42,28 @@ describe("PokemonCard (smoke)", () => {
       <PokemonCard id={25} name="pikachu" image="pikachu.png" type="electric" />
     );
 
-    // État initial : bouton pokéball, pas de "Relacher"
-    expect(screen.queryByText(/relacher/i)).not.toBeInTheDocument();
+    // État initial : pokéball présente, pas encore de "Relâcher"
+    const captureButton = screen.getByRole("button", { name: /capturer/i });
+    expect(captureButton).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /relâcher/i })
+    ).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button"));
+    fireEvent.click(captureButton);
 
     // Le hook déclenche capturePokemon après l'animation (1s) + attend
-    // la résolution de la mutation et le rerender. On laisse findByRole
-    // poller jusqu'à 3s pour absorber ces délais.
+    // la résolution de la mutation et le rerender. findByRole poll
+    // jusqu'à 3s pour absorber ces délais.
     const releaseButton = await screen.findByRole(
       "button",
-      { name: /relacher/i },
+      { name: /relâcher/i },
       { timeout: 3000 }
     );
     expect(releaseButton).toBeInTheDocument();
+    // La pokéball reste disponible pour permettre de re-capturer.
+    expect(
+      screen.getByRole("button", { name: /capturer/i })
+    ).toBeInTheDocument();
     expect(capturePokemon).toHaveBeenCalledWith({ pokemon_id: 25 });
   });
 });
