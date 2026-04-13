@@ -1,62 +1,57 @@
-// "use client" car on utilise useState, useEffect, useQuery et localStorage.
+// "use client" car on utilise React Query côté navigateur.
 "use client";
 
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
 import { CaughtPokemon } from "../../components/molecules/caughtPokemon/CaughtPokemon";
+import { useMyCaptures } from "../../hooks/useMyCaptures";
 
-function readStoredPokemonIds(): number[] | null {
-  const raw = localStorage.getItem("storagePokemon");
-  if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : null;
-  } catch {
-    return null;
-  }
-}
+// Shape minimale nécessaire pour l'affichage — getPokemon renvoie
+// beaucoup plus, on ne type que ce qu'on consomme ici.
+type PokemonDetail = {
+  id: number;
+  [key: string]: unknown;
+};
 
 export default function BoxPokemonPage() {
-  // undefined = "on ne sait pas encore" (le serveur n'a pas accès à localStorage).
-  // null = "pas de pokémon capturés".
-  // number[] = "voilà les ids".
-  // On lit localStorage dans useEffect (côté client uniquement) pour éviter
-  // le "hydration mismatch" : le serveur et le client rendent le même état
-  // initial (undefined → Loading...) puis le client met à jour.
-  const [boxPokemon, setBoxPokemon] = useState<number[] | null | undefined>(
-    undefined
-  );
+  // Toutes les captures du dresseur connecté (une ligne par INSTANCE).
+  // La protection /boxPokemon par le middleware garantit qu'on a bien un user.
+  const { data: captures, isLoading: capturesLoading } = useMyCaptures();
 
-  useEffect(() => {
-    setBoxPokemon(readStoredPokemonIds());
-  }, []);
+  // Déduplication : si j'ai 3 Pikachu, inutile de fetcher PokéAPI 3 fois.
+  // On fetch une fois par espèce, puis on indexe par pokemon_id pour réassembler.
+  const uniquePokemonIds = captures
+    ? Array.from(new Set(captures.map((c) => c.pokemon_id)))
+    : [];
 
-  const { isLoading, data } = useQuery({
-    queryKey: [`boxPokemon-${boxPokemon}`],
-    queryFn: () =>
-      Promise.all((boxPokemon ?? []).map((pokemon) => getPokemon(pokemon))),
-    enabled: boxPokemon !== undefined && boxPokemon !== null,
+  const { data: pokemonMap, isLoading: pokemonsLoading } = useQuery({
+    queryKey: ["boxPokemon-data", uniquePokemonIds],
+    queryFn: async () => {
+      const pokemons = (await Promise.all(
+        uniquePokemonIds.map((pid) => getPokemon(pid))
+      )) as PokemonDetail[];
+      return new Map(pokemons.map((p) => [p.id, p]));
+    },
+    enabled: uniquePokemonIds.length > 0,
   });
 
-  // Première frame côté client : on attend la lecture de localStorage
-  if (boxPokemon === undefined) {
-    return <div>Loading...</div>;
+  if (capturesLoading) return <div>Loading...</div>;
+  if (!captures || captures.length === 0) {
+    return <div>Tu n&apos;as pas encore attrapé de Pokémon !</div>;
   }
+  if (pokemonsLoading || !pokemonMap) return <div>Loading...</div>;
 
-  if (!boxPokemon) {
-    return <div>Tu n'as pas encore attrapé de Pokémon !</div>;
-  }
-
-  if (isLoading || !data) {
-    return <div>Loading...</div>;
-  }
-
+  // Une carte par INSTANCE (donc doublons attendus). Le key=capture.id est
+  // un UUID unique, pas de warning React.
   return (
     <div>
-      {data.map((pokemon, i) => (
-        <CaughtPokemon key={i} data={pokemon} />
-      ))}
+      {captures.map((capture) => {
+        const pokemon = pokemonMap.get(capture.pokemon_id);
+        if (!pokemon) return null;
+        // @ts-expect-error — getPokemon renvoie un any, CaughtPokemon
+        // attend une shape spécifique que le JSON respecte à l'exécution.
+        return <CaughtPokemon key={capture.id} data={pokemon} />;
+      })}
     </div>
   );
 }

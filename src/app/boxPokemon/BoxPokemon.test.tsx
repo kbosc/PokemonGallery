@@ -1,16 +1,25 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { screen } from "@testing-library/react";
 import BoxPokemonPage from "./page";
 import { renderWithProviders } from "../../test/renderWithProviders";
 
+// On mocke le service Supabase : le test valide la logique UI,
+// pas la connexion réseau.
+vi.mock("../../lib/supabase/captures", () => ({
+  getMyCaptures: vi.fn(),
+  capturePokemon: vi.fn(),
+  releasePokemon: vi.fn(),
+}));
+
+import { getMyCaptures } from "../../lib/supabase/captures";
+
 describe("BoxPokemon (smoke)", () => {
-  it.each([
-    ["with an empty string in storage", ""],
-    ["with no storage key at all", null],
-  ])("shows the empty state %s", async (_label, value) => {
-    if (value !== null) {
-      localStorage.setItem("storagePokemon", value);
-    }
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("affiche l'état vide quand le dresseur n'a aucune capture", async () => {
+    vi.mocked(getMyCaptures).mockResolvedValue([]);
 
     renderWithProviders(<BoxPokemonPage />);
 
