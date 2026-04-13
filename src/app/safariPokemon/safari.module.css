@@ -1,11 +1,59 @@
+/* Plein écran : la scène recouvre toute la fenêtre, même par-dessus le
+   header. C'est un mode "immersion" — on en sort via le bouton Quitter. */
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 100;
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   padding: 3rem 2rem;
   max-width: 600px;
+  min-height: 100vh;
   margin: 0 auto;
+}
+
+.habitatLabel {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.exitButton {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-family: inherit;
+  color: var(--color-secondary);
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(0, 0, 0, 0.8);
+    outline: none;
+  }
 }
 
 .title {

@@ -1,0 +1,102 @@
+.plaine {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #87ceeb 0%,
+    #a8d8e8 40%,
+    #cfeac0 60%,
+    #7ab85a 75%,
+    #4a8a3a 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- Soleil ---- */
+
+.sun {
+  position: absolute;
+  top: 5%;
+  right: 8%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #fff8c8 0%,
+    #ffd860 60%,
+    #ffb820 100%
+  );
+  box-shadow: 0 0 40px rgba(255, 220, 100, 0.6);
+}
+
+.sunHalo {
+  position: absolute;
+  top: 1%;
+  right: 4%;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 240, 180, 0.4) 0%,
+    transparent 70%
+  );
+}
+
+/* ---- Nuages ---- */
+
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50px;
+  filter: blur(2px);
+  /* Ombres portées multiples = bosses du nuage */
+  box-shadow:
+    -20px 8px 0 -2px rgba(255, 255, 255, 0.85),
+    20px 6px 0 -4px rgba(255, 255, 255, 0.85),
+    -10px -10px 0 -6px rgba(255, 255, 255, 0.85),
+    15px -8px 0 -4px rgba(255, 255, 255, 0.85);
+  animation-name: cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes cloud-drift {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+/* ---- Brins d'herbe ---- */
+
+.grassRow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+}
+
+.grass {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #5fa838 0%, #2f6818 100%);
+  border-radius: 2px 2px 0 0;
+  transform-origin: bottom;
+}

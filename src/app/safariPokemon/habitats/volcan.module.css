@@ -1,0 +1,116 @@
+.volcan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    /* Vignette tunnel */
+    radial-gradient(
+      ellipse at center 80%,
+      transparent 20%,
+      rgba(0, 0, 0, 0.7) 90%
+    ),
+    /* Lueur de lave depuis le bas */
+    radial-gradient(
+      ellipse at center 95%,
+      #ff6b1a 0%,
+      #c8260a 15%,
+      #6a1505 35%,
+      #2a0805 65%,
+      #0a0303 100%
+    ),
+    #050202;
+  pointer-events: none;
+}
+
+/* ---- Roches en silhouette ---- */
+
+.rocks {
+  position: absolute;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
+  height: 4rem;
+}
+
+.rock {
+  position: absolute;
+  bottom: 0;
+
+  & polygon {
+    fill: #1a0805;
+    stroke: #0a0303;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+}
+
+/* ---- Lave qui pulse ---- */
+
+.lava {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 100, 30, 0.4) 30%,
+    rgba(255, 60, 10, 0.85) 70%,
+    rgba(255, 200, 80, 1) 100%
+  );
+  filter: blur(1px);
+  animation: lava-pulse 4s ease-in-out infinite;
+}
+
+@keyframes lava-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+    box-shadow: 0 -10px 30px rgba(255, 80, 20, 0.6);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 -15px 50px rgba(255, 120, 40, 0.85);
+  }
+}
+
+/* ---- Braises qui montent ---- */
+
+.embers {
+  position: absolute;
+  inset: 0;
+}
+
+.ember {
+  position: absolute;
+  bottom: 2rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #ffe060 0%,
+    #ff8020 50%,
+    #c8200a 100%
+  );
+  box-shadow: 0 0 6px rgba(255, 140, 40, 0.8);
+  animation-name: ember-rise;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-90vh);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,98 @@
+.ocean {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #6cb9e8 0%,
+    #2a78b8 25%,
+    #0d3a6c 60%,
+    #051e35 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- Rayons de lumière depuis la surface ---- */
+
+.sunrays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+}
+
+.sunray {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform-origin: top;
+  filter: blur(2px);
+}
+
+/* ---- Coraux / algues ---- */
+
+.corals {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
+}
+
+.coral {
+  position: absolute;
+  bottom: 0;
+
+  & polygon {
+    fill: #1a3a4a;
+    stroke: #0a1a25;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+}
+
+/* ---- Bulles qui remontent ---- */
+
+.bubbles {
+  position: absolute;
+  inset: 0;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.9),
+    rgba(200, 230, 255, 0.4)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation-name: bubble-rise;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}

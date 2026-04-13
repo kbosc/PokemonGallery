@@ -1,0 +1,135 @@
+.caverne {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    /* Vignette tunnel : assombrit les bords pour suggérer une ouverture */
+    radial-gradient(
+      ellipse at center 50%,
+      transparent 30%,
+      rgba(0, 0, 0, 0.7) 90%
+    ),
+    /* Lumière centrale chaude */
+    radial-gradient(
+      ellipse at center 30%,
+      rgba(110, 75, 50, 0.6) 0%,
+      rgba(40, 25, 15, 0.9) 50%,
+      rgba(15, 10, 5, 1) 100%
+    ),
+    #0a0705;
+  pointer-events: none;
+}
+
+/* ---- Stalactites (plafond) ---- */
+
+.stalactites {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10rem;
+}
+
+.stalactite {
+  position: absolute;
+  top: 0;
+
+  & polygon {
+    fill: #2a1a10;
+    stroke: #1a0f08;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+}
+
+/* ---- Rochers en arrière-plan (silhouettes claires, bas du décor) ---- */
+
+.backgroundRocks {
+  position: absolute;
+  bottom: 4rem;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  opacity: 0.6;
+}
+
+.backgroundRock {
+  position: absolute;
+  bottom: 0;
+
+  & polygon {
+    fill: #3a2418;
+    stroke: #2a180e;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+}
+
+/* ---- Rochers au premier plan (gros, dans les angles bas) ---- */
+
+.foregroundRocks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 9rem;
+}
+
+.foregroundRock {
+  position: absolute;
+  bottom: 0;
+  height: 9rem;
+
+  &.left {
+    left: 0;
+    width: 14rem;
+  }
+
+  &.right {
+    right: 0;
+    width: 16rem;
+  }
+
+  & polygon {
+    fill: #1a0f08;
+    stroke: #0a0503;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+}
+
+/* ---- Particules de poussière ---- */
+
+.particles {
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  position: absolute;
+  top: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: rgba(200, 170, 130, 0.5);
+  animation-name: particle-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes particle-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}

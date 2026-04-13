@@ -2,59 +2,114 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import { getPokemon } from "../../api/pokeApi";
 import { useCapturedPokemon } from "../../hooks/useCapturedPokemon";
 import Pokeball from "../../components/atoms/pokeball/Pokeball";
 import Button from "../../components/atoms/button/Button";
+import {
+  HABITATS,
+  pickRandomFromPool,
+  pickRandomHabitat,
+  useHabitatPool,
+  type HabitatKey,
+} from "./habitats";
 import styles from "./safari.module.css";
 
-// Pool de départ : Gen 1 (151 premiers). Facile à étendre plus tard
-// (ou à filtrer par type pour les décors thématiques).
-const POOL_MIN = 1;
-const POOL_MAX = 151;
+// Bouton Quitter : ramène à l'accueil. C'est le SEUL moyen de sortir de
+// l'overlay plein écran (pas de bouton retour navigateur intuitif sinon).
+function ExitButton() {
+  return (
+    <Link href="/" className={styles.exitButton} aria-label="Quitter le safari">
+      ✕
+    </Link>
+  );
+}
 
-function pickRandomId(): number {
-  return Math.floor(Math.random() * (POOL_MAX - POOL_MIN + 1)) + POOL_MIN;
+// Wrapper réutilisable pour les états transitoires (chargement,
+// recherche). Évite de répéter le balisage scene + ExitButton.
+function SafariFrame({
+  habitat,
+  message,
+}: {
+  habitat: HabitatKey | null;
+  message: string;
+}) {
+  const Background = habitat ? HABITATS[habitat].Background : null;
+  return (
+    <div className={styles.scene}>
+      {Background && <Background />}
+      <ExitButton />
+      <div className={styles.container}>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
 }
 
 export default function SafariPokemonPage() {
-  // null au 1er rendu côté serveur ET au 1er rendu côté client → pas
-  // de hydration mismatch (le Math.random ne s'exécute que dans useEffect).
-  const [currentId, setCurrentId] = useState<number | null>(null);
+  // Flow d'une rencontre :
+  //   1. habitat null → useEffect tire un habitat au hasard
+  //   2. useHabitatPool fetch les pokémons des types de cet habitat
+  //   3. dès que pool est chargé → useEffect tire un pokémon
+  //   4. tout est prêt → on rend SafariEncounter
+  // Rerolls : on remet habitat ET pokemonId à null pour relancer le cycle.
+  const [habitat, setHabitat] = useState<HabitatKey | null>(null);
+  const [pokemonId, setPokemonId] = useState<number | null>(null);
+  const { data: pool } = useHabitatPool(habitat);
 
+  // 1. Tire un habitat au mount + à chaque reroll.
+  // (côté client uniquement → pas de hydration mismatch)
   useEffect(() => {
-    if (currentId === null) setCurrentId(pickRandomId());
-  }, [currentId]);
+    if (habitat === null) setHabitat(pickRandomHabitat());
+  }, [habitat]);
 
-  const rerollPokemon = () => setCurrentId(pickRandomId());
+  // 2. Quand le pool est prêt, tire le pokémon.
+  useEffect(() => {
+    if (pool && pokemonId === null) {
+      setPokemonId(pickRandomFromPool(pool));
+    }
+  }, [pool, pokemonId]);
 
-  if (currentId === null) {
+  const reroll = () => {
+    setHabitat(null);
+    setPokemonId(null);
+  };
+
+  if (habitat === null) {
+    return <SafariFrame habitat={null} message="Recherche d'un habitat..." />;
+  }
+
+  if (pokemonId === null) {
     return (
-      <div className={styles.container}>
-        <p>Recherche d&apos;un pokémon sauvage...</p>
-      </div>
+      <SafariFrame habitat={habitat} message="Recherche d'un pokémon sauvage..." />
     );
   }
 
   return (
     <SafariEncounter
-      key={currentId}
-      pokemonId={currentId}
-      onReroll={rerollPokemon}
+      key={`${habitat}-${pokemonId}`}
+      habitat={habitat}
+      pokemonId={pokemonId}
+      onReroll={reroll}
     />
   );
 }
 
-// Composant enfant keyé sur pokemonId → à chaque changement de pokemon,
+// Composant enfant keyé sur (habitat, pokemonId) → à chaque changement,
 // tout l'état interne (selected, mutations en cours…) est remis à zéro.
 function SafariEncounter({
+  habitat,
   pokemonId,
   onReroll,
 }: {
+  habitat: HabitatKey;
   pokemonId: number;
   onReroll: () => void;
 }) {
+  const { Background, label } = HABITATS[habitat];
+
   const { data, isLoading } = useQuery({
     queryKey: ["safari-pokemon", pokemonId],
     queryFn: () => getPokemon(pokemonId),
@@ -63,8 +118,12 @@ function SafariEncounter({
 
   if (isLoading || !data) {
     return (
-      <div className={styles.container}>
-        <p>Chargement...</p>
+      <div className={styles.scene}>
+        <Background />
+        <ExitButton />
+        <div className={styles.container}>
+          <p>Chargement...</p>
+        </div>
       </div>
     );
   }
@@ -74,37 +133,40 @@ function SafariEncounter({
     data.sprites.front_default;
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>
-        Un {data.name} sauvage apparaît !
-      </h2>
+    <div className={styles.scene}>
+      <Background />
+      <ExitButton />
+      <div className={styles.container}>
+        <p className={styles.habitatLabel}>{label}</p>
+        <h2 className={styles.title}>Un {data.name} sauvage apparaît !</h2>
 
-      {sprite && (
-        <img
-          className={styles.sprite}
-          src={sprite}
-          alt={`Pokémon sauvage : ${data.name}`}
-        />
-      )}
+        {sprite && (
+          <img
+            className={styles.sprite}
+            src={sprite}
+            alt={`Pokémon sauvage : ${data.name}`}
+          />
+        )}
 
-      {instanceCount > 0 && (
-        <p className={styles.stackInfo}>
-          Tu en possèdes déjà {instanceCount} dans ta box.
-        </p>
-      )}
+        {instanceCount > 0 && (
+          <p className={styles.stackInfo}>
+            Tu en possèdes déjà {instanceCount} dans ta box.
+          </p>
+        )}
 
-      <div className={styles.actions}>
-        {/* Pokéball toujours cliquable — on peut retenter jusqu'à
-            réussir, ou en capturer plusieurs avant de passer au suivant. */}
-        <button
-          className={styles.pokeballButton}
-          onClick={capture}
-          aria-label={`Lancer une pokéball sur ${data.name}`}
-        >
-          <Pokeball selected={selected} />
-        </button>
+        <div className={styles.actions}>
+          {/* Pokéball toujours cliquable — on peut retenter jusqu'à
+              réussir, ou en capturer plusieurs avant de passer au suivant. */}
+          <button
+            className={styles.pokeballButton}
+            onClick={capture}
+            aria-label={`Lancer une pokéball sur ${data.name}`}
+          >
+            <Pokeball selected={selected} />
+          </button>
 
-        <Button onClick={onReroll}>Chercher un autre pokémon</Button>
+          <Button onClick={onReroll}>Chercher un autre pokémon</Button>
+        </div>
       </div>
     </div>
   );
