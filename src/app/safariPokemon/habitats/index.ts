@@ -8,22 +8,35 @@
 
 import type { ComponentType } from "react";
 import { useQueries } from "@tanstack/react-query";
-import { getPokemonIdsByType } from "../../../api/pokeApi";
+import {
+  getPokemonIdsByType,
+  type PokemonType,
+} from "../../../api/pokeApi";
 import Caverne from "./Caverne";
+import Foret from "./Foret";
 import Ocean from "./Ocean";
 import Plaine from "./Plaine";
+import Sanctuaire from "./Sanctuaire";
 import Volcan from "./Volcan";
 import {
   CAVERNE_CONFIG,
+  FORET_CONFIG,
   OCEAN_CONFIG,
   PLAINE_CONFIG,
+  SANCTUAIRE_CONFIG,
   VOLCAN_CONFIG,
   type HabitatPoolConfig,
 } from "./pools";
 
 // Identifiant court pour chaque habitat. Le type littéral nous évite
 // les typos : si on écrit "cavern" au lieu de "caverne", TypeScript râle.
-export type HabitatKey = "caverne" | "ocean" | "plaine" | "volcan";
+export type HabitatKey =
+  | "caverne"
+  | "foret"
+  | "ocean"
+  | "plaine"
+  | "sanctuaire"
+  | "volcan";
 
 type HabitatEntry = {
   // Nom affiché à l'utilisateur ("Un pokémon apparaît dans la Caverne !")
@@ -40,6 +53,11 @@ export const HABITATS: Record<HabitatKey, HabitatEntry> = {
     Background: Caverne,
     pool: CAVERNE_CONFIG,
   },
+  foret: {
+    label: "Forêt",
+    Background: Foret,
+    pool: FORET_CONFIG,
+  },
   ocean: {
     label: "Océan",
     Background: Ocean,
@@ -49,6 +67,11 @@ export const HABITATS: Record<HabitatKey, HabitatEntry> = {
     label: "Plaine",
     Background: Plaine,
     pool: PLAINE_CONFIG,
+  },
+  sanctuaire: {
+    label: "Sanctuaire",
+    Background: Sanctuaire,
+    pool: SANCTUAIRE_CONFIG,
   },
   volcan: {
     label: "Volcan",
@@ -67,6 +90,29 @@ const HABITAT_KEYS = Object.keys(HABITATS) as HabitatKey[];
 export function pickRandomHabitat(): HabitatKey {
   const i = Math.floor(Math.random() * HABITAT_KEYS.length);
   return HABITAT_KEYS[i];
+}
+
+/**
+ * Pure : compose le pool d'un habitat depuis une fonction qui résout
+ * `type → IDs`. Logique partagée entre le hook (qui passe les données
+ * de PokéAPI) et le test de couverture (qui passe un fixture statique).
+ *
+ * Étapes :
+ *   1. union des IDs de tous les types listés (Set pour dédupliquer)
+ *   2. ajout des extraIds (overrides curatoriaux)
+ *   3. retrait des excludeIds (filtres)
+ */
+export function computeHabitatPool(
+  config: HabitatPoolConfig,
+  resolveType: (type: PokemonType) => number[]
+): number[] {
+  const ids = new Set<number>();
+  for (const type of config.types) {
+    resolveType(type).forEach((id) => ids.add(id));
+  }
+  config.extraIds?.forEach((id) => ids.add(id));
+  config.excludeIds?.forEach((id) => ids.delete(id));
+  return Array.from(ids);
 }
 
 /**
@@ -102,15 +148,11 @@ export function useHabitatPool(habitat: HabitatKey | null) {
     return { data: undefined as number[] | undefined, isLoading };
   }
 
-  // Union des IDs de tous les types, plus extras, moins excludes.
-  // On utilise un Set pour dédupliquer (un pokémon peut être listé
-  // dans 2 types : ex Geodude est rock ET ground).
-  const ids = new Set<number>();
-  queries.forEach((q) => q.data?.forEach((id) => ids.add(id)));
-  config.extraIds?.forEach((id) => ids.add(id));
-  config.excludeIds?.forEach((id) => ids.delete(id));
-
-  return { data: Array.from(ids), isLoading: false };
+  const data = computeHabitatPool(config, (type) => {
+    const i = types.indexOf(type);
+    return queries[i]?.data ?? [];
+  });
+  return { data, isLoading: false };
 }
 
 /**

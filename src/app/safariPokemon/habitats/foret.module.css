@@ -1,0 +1,131 @@
+.foret {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    #0a1810 0%,
+    #1a3018 25%,
+    #2a4520 50%,
+    #3a3018 80%,
+    #2a1f10 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- Canopée (haut) ---- */
+
+.canopy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+}
+
+.canopyBlob {
+  position: absolute;
+  top: -10%;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    #1a3018 0%,
+    #0a1810 60%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  filter: blur(8px);
+}
+
+/* ---- Troncs d'arbres ---- */
+
+.trees {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.tree {
+  position: absolute;
+  bottom: 0;
+
+  &.front {
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      #1a0f08 30%,
+      #0a0503 100%
+    );
+
+    &.left {
+      left: 0;
+    }
+    &.right {
+      right: 0;
+    }
+  }
+
+  &.back {
+    height: 70%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      #2a1f10 40%,
+      #1a1208 100%
+    );
+    opacity: 0.7;
+  }
+}
+
+/* ---- Brouillard ---- */
+
+.mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(120, 140, 110, 0.15) 50%,
+    rgba(140, 160, 130, 0.3) 100%
+  );
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* ---- Lucioles ---- */
+
+.fireflies {
+  position: absolute;
+  inset: 0;
+}
+
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #d8f068;
+  box-shadow:
+    0 0 6px #d8f068,
+    0 0 12px rgba(216, 240, 104, 0.6);
+  animation-name: firefly-pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes firefly-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.2);
+  }
+}

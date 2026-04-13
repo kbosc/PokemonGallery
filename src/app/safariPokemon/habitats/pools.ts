@@ -19,11 +19,18 @@ export type HabitatPoolConfig = {
 };
 
 // Caverne : roche + sol = grottes, mines, tunnels.
-// extraIds : Zubat/Golbat (poison/flying mais 100% caverne dans les jeux)
-//            + Paras/Parasect (bug/grass mais habitent les grottes humides)
+// extraIds :
+//   - Zubat/Golbat (poison/flying mais 100% caverne dans les jeux)
+//   - Paras/Parasect (bug/grass mais habitent les grottes humides)
+//   - Clefairy/Clefable : étaient normal en Gen 1, mais PokéAPI les
+//     classe désormais en fairy uniquement (typing rétro-actif Gen 6).
+//     Sans cet override, ils seraient absents de tous les pools.
+//     Mont-Sélénite est leur habitat canonique → Caverne.
 export const CAVERNE_CONFIG: HabitatPoolConfig = {
   types: ["rock", "ground"],
   extraIds: [
+    35, // Clefairy
+    36, // Clefable
     41, // Zubat
     42, // Golbat
     46, // Paras
@@ -48,4 +55,23 @@ export const PLAINE_CONFIG: HabitatPoolConfig = {
 // très thématique.
 export const VOLCAN_CONFIG: HabitatPoolConfig = {
   types: ["fire"],
+};
+
+// Forêt : insectes + poison = sous-bois sombre, lianes toxiques, nids.
+// Couvre Caterpie, Weedle, Venonat, Scyther, Pinsir, Ekans, Grimer,
+// Koffing, etc. Les grass/poison (Bulbasaur, Oddish…) apparaissent
+// aussi ici en plus de la Plaine — overlap volontaire pour la variété.
+export const FORET_CONFIG: HabitatPoolConfig = {
+  types: ["bug", "poison"],
+};
+
+// Sanctuaire : le "fourre-tout thématisé". Rassemble psychic, ghost,
+// fighting, dragon et ice — types qui ne collaient à aucun autre
+// habitat. Le décor (temple mystique) justifie l'éclectisme.
+//
+// Couvre la trinité Abra/Kadabra/Alakazam, Drowzee/Hypno, Gastly/
+// Haunter/Gengar, Machop/Hitmonlee, Dratini/Dragonair/Dragonite,
+// Jynx/Articuno, Mewtwo/Mew.
+export const SANCTUAIRE_CONFIG: HabitatPoolConfig = {
+  types: ["psychic", "ghost", "fighting", "dragon", "ice"],
 };

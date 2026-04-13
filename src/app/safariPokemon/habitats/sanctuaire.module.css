@@ -1,0 +1,127 @@
+.sanctuaire {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    /* Vignette pour le côté mystique */
+    radial-gradient(
+      ellipse at center 50%,
+      transparent 30%,
+      rgba(0, 0, 0, 0.6) 90%
+    ),
+    /* Aura mystique au centre */
+    radial-gradient(
+      ellipse at center 40%,
+      #6a3a8a 0%,
+      #3a1a5a 30%,
+      #1a0a3a 65%,
+      #0a0520 100%
+    ),
+    #050315;
+  pointer-events: none;
+}
+
+/* ---- Faisceau de lumière divine ---- */
+
+.divineBeam {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 30%;
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(220, 180, 255, 0.15) 0%,
+    rgba(180, 130, 220, 0.08) 50%,
+    transparent 100%
+  );
+  filter: blur(3px);
+}
+
+/* ---- Piliers de pierre ---- */
+
+.pillars {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.pillar {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    #1a1028 20%,
+    #100620 60%,
+    #050315 100%
+  );
+  /* Sommet du pilier : trapèze inversé via box-shadow inset */
+  box-shadow: inset 0 8px 0 -2px #2a1a3a;
+
+  &.left {
+    border-left: none;
+  }
+  &.right {
+    border-right: none;
+  }
+}
+
+/* ---- Runes flottantes ---- */
+
+.runes {
+  position: absolute;
+  inset: 0;
+}
+
+.rune {
+  position: absolute;
+
+  & circle {
+    fill: none;
+    stroke: rgba(180, 130, 220, 0.5);
+    stroke-width: 1.5;
+  }
+
+  & line {
+    stroke: rgba(180, 130, 220, 0.5);
+    stroke-width: 1.5;
+  }
+}
+
+/* ---- Orbes lumineuses ---- */
+
+.orbs {
+  position: absolute;
+  inset: 0;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(220, 180, 255, 0.95) 0%,
+    rgba(180, 130, 220, 0.6) 50%,
+    transparent 100%
+  );
+  box-shadow: 0 0 12px rgba(180, 130, 220, 0.7);
+  animation-name: orb-float;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes orb-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.1);
+    opacity: 1;
+  }
+}
