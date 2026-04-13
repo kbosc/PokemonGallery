@@ -1,0 +1,78 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-secondary);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.sprite {
+  width: 6rem;
+  height: 6rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: var(--color-secondary);
+  text-transform: capitalize;
+}
+
+.shiny {
+  font-size: 1.2rem;
+}
+
+.meta {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: capitalize;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nicknameInput {
+  padding: 0.4rem 0.6rem;
+  font-size: 1.3rem;
+  font-family: inherit;
+  border: 2px solid var(--color-secondary);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-secondary-light);
+    box-shadow: 0 0 0 2px rgba(242, 209, 71, 0.3);
+  }
+}
+
+.editActions {
+  display: flex;
+  gap: 0.4rem;
+}

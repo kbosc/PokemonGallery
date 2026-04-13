@@ -48,9 +48,15 @@ export default function BoxPokemonPage() {
       {captures.map((capture) => {
         const pokemon = pokemonMap.get(capture.pokemon_id);
         if (!pokemon) return null;
-        // @ts-expect-error — getPokemon renvoie un any, CaughtPokemon
-        // attend une shape spécifique que le JSON respecte à l'exécution.
-        return <CaughtPokemon key={capture.id} data={pokemon} />;
+        return (
+          <CaughtPokemon
+            key={capture.id}
+            capture={capture}
+            // @ts-expect-error — getPokemon renvoie any, le JSON
+            // respecte la shape PokemonDetail à l'exécution.
+            data={pokemon}
+          />
+        );
       })}
     </div>
   );
