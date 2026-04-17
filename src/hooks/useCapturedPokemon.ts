@@ -37,7 +37,10 @@ export interface UseCapturedPokemonResult {
   instanceCount: number;
 }
 
-export function useCapturedPokemon(id: number): UseCapturedPokemonResult {
+export function useCapturedPokemon(
+  id: number,
+  isShiny = false
+): UseCapturedPokemonResult {
   const { data: captures = [] } = useMyCaptures();
   const instances = captures.filter((c) => c.pokemon_id === id);
   const caught = instances.length > 0;
@@ -57,7 +60,8 @@ export function useCapturedPokemon(id: number): UseCapturedPokemonResult {
   }, [caught, play]);
 
   const captureMutation = useMutation({
-    mutationFn: () => capturePokemon({ pokemon_id: id }),
+    mutationFn: (opts: { is_shiny: boolean }) =>
+      capturePokemon({ pokemon_id: id, is_shiny: opts.is_shiny }),
     onSuccess: (newCapture) => {
       // Patch optimiste : on injecte la nouvelle ligne dans le cache
       // sans refetch réseau, pour une UI instantanée.
@@ -89,7 +93,7 @@ export function useCapturedPokemon(id: number): UseCapturedPokemonResult {
     // On persiste en DB à la fin de l'animation, pas avant : sinon le
     // flip UI "capturé" se produirait pendant le lancer.
     setTimeout(() => {
-      captureMutation.mutate();
+      captureMutation.mutate({ is_shiny: isShiny });
     }, CATCH_ANIMATION_MS);
   };
 

@@ -31,6 +31,8 @@ type PokemonDetail = {
   weight: number;
   types?: Array<{ type: { name: string } }>;
   sprites: {
+    front_default: string | null;
+    front_shiny: string | null;
     other?: {
       dream_world?: {
         front_default: string | null;
@@ -74,7 +76,11 @@ export const CaughtPokemon = ({ capture, data }: Props) => {
 
   const displayName = capture.nickname ?? data.name;
   const primaryType = data.types?.[0]?.type.name ?? "—";
-  const sprite = data.sprites.other?.dream_world?.front_default;
+  // Shiny → front_shiny de PokéAPI (pas de dream_world shiny disponible).
+  // Normal → dream_world HD en priorité, front_default en fallback.
+  const sprite = capture.is_shiny
+    ? (data.sprites.front_shiny ?? data.sprites.front_default)
+    : (data.sprites.other?.dream_world?.front_default ?? data.sprites.front_default);
   // Le renommage est limité à 1 fois par instance (trigger DB qui
   // décrémente nickname_changes_left). Le bouton "Renommer" disparaît
   // quand le crédit est à 0 ; si malgré ça le front envoie une mutation,
@@ -94,7 +100,7 @@ export const CaughtPokemon = ({ capture, data }: Props) => {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${capture.is_shiny ? styles.cardShiny : ""}`}>
       {sprite && (
         <img
           className={styles.sprite}

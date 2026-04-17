@@ -88,6 +88,9 @@ export default function SafariHabitatPage({
   // En mode fixe, `habitat` est déjà défini côté serveur et reste figé.
   const [habitat, setHabitat] = useState<HabitatKey | null>(fixedHabitat);
   const [pokemonId, setPokemonId] = useState<number | null>(null);
+  // Tiré une seule fois à la rencontre (comme dans les vrais jeux :
+  // le shiny est visible AVANT la capture). 1/128 = taux classique Gen 1-2.
+  const [isShiny, setIsShiny] = useState(false);
   const { data: pool } = useHabitatPool(habitat);
 
   // 1. Mode random uniquement : tire un habitat au mount + à chaque reroll.
@@ -95,10 +98,11 @@ export default function SafariHabitatPage({
     if (isRandom && habitat === null) setHabitat(pickRandomHabitat());
   }, [isRandom, habitat]);
 
-  // 2. Quand le pool est prêt, tire le pokémon.
+  // 2. Quand le pool est prêt, tire le pokémon + le statut shiny.
   useEffect(() => {
     if (pool && pokemonId === null) {
       setPokemonId(pickRandomFromPool(pool));
+      setIsShiny(Math.random() < 1 / 128);
     }
   }, [pool, pokemonId]);
 
@@ -128,6 +132,7 @@ export default function SafariHabitatPage({
       key={`${habitat}-${pokemonId}`}
       habitat={habitat}
       pokemonId={pokemonId}
+      isShiny={isShiny}
       onReroll={reroll}
     />
   );
@@ -138,10 +143,12 @@ export default function SafariHabitatPage({
 function SafariEncounter({
   habitat,
   pokemonId,
+  isShiny,
   onReroll,
 }: {
   habitat: HabitatKey;
   pokemonId: number;
+  isShiny: boolean;
   onReroll: () => void;
 }) {
   const { Background, label } = HABITATS[habitat];
@@ -150,7 +157,7 @@ function SafariEncounter({
     queryKey: ["safari-pokemon", pokemonId],
     queryFn: () => getPokemon(pokemonId),
   });
-  const { selected, capture, instanceCount } = useCapturedPokemon(pokemonId);
+  const { selected, capture, instanceCount } = useCapturedPokemon(pokemonId, isShiny);
 
   if (isLoading || !data) {
     return (
@@ -164,9 +171,11 @@ function SafariEncounter({
     );
   }
 
-  const sprite =
-    data.sprites.other?.dream_world?.front_default ??
-    data.sprites.front_default;
+  // Shiny → sprite front_shiny de PokéAPI.
+  // Normal → dream_world (SVG HD) en priorité, front_default en fallback.
+  const sprite = isShiny
+    ? (data.sprites.front_shiny ?? data.sprites.front_default)
+    : (data.sprites.other?.dream_world?.front_default ?? data.sprites.front_default);
 
   return (
     <div className={styles.scene}>
@@ -174,7 +183,14 @@ function SafariEncounter({
       <ExitButton />
       <div className={styles.container}>
         <p className={styles.habitatLabel}>{label}</p>
-        <h2 className={styles.title}>Un {data.name} sauvage apparaît !</h2>
+        <h2 className={styles.title}>
+          {isShiny && (
+            <span role="img" aria-label="Shiny" title="Pokémon shiny !">
+              ⭐{" "}
+            </span>
+          )}
+          Un {data.name} sauvage apparaît !
+        </h2>
 
         {sprite && (
           <img
