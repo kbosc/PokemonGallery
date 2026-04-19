@@ -26,10 +26,15 @@ export default function PokemonCard({ id, name, image, type }: Props) {
           ×{count}
         </span>
       )}
-      <span>#{id}</span>
-      <span>{name}</span>
-      <img src={image} alt={name} />
-      <span>Type: {type}</span>
+      <span className={styles.number}>#{String(id).padStart(3, "0")}</span>
+      <img className={styles.sprite} src={image} alt={name} />
+      <span className={styles.name}>{name}</span>
+      <span
+        className={styles.typeBadge}
+        style={{ "--type-color": `var(--type-${type})` } as React.CSSProperties}
+      >
+        {type}
+      </span>
     </div>
   );
 }

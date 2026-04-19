@@ -98,20 +98,12 @@
 
 /* ---- Menu de sélection d'habitat ---- */
 
-.menuScene {
-  position: fixed;
-  inset: 0;
-  overflow-y: auto;
-  z-index: 100;
-  background: #0a0a14;
-}
-
 .menuContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  padding: 5rem 2rem 3rem;
+  padding: 2.5rem 2rem 3rem;
   max-width: 900px;
   margin: 0 auto;
 }

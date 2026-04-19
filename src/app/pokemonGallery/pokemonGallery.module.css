@@ -1,19 +1,18 @@
 .gallery {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .cardContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 2rem;
-  color: black;
+  gap: 1.6rem;
+  justify-content: center;
 }
 
 .buttonRow {
   display: flex;
   justify-content: center;
+  padding-bottom: 2rem;
 }

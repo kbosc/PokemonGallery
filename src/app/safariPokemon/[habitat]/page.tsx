@@ -41,7 +41,7 @@ function parseHabitatSlug(slug: string): HabitatKey | null {
 
 function ExitButton() {
   return (
-    <Link href="/" className={styles.exitButton} aria-label="Quitter le safari">
+    <Link href="/safariPokemon" className={styles.exitButton} aria-label="Quitter le safari">
       ✕
     </Link>
   );

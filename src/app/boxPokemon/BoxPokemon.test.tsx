@@ -24,7 +24,7 @@ describe("BoxPokemon (smoke)", () => {
     renderWithProviders(<BoxPokemonPage />);
 
     expect(
-      await screen.findByText(/tu n'as pas encore attrapé/i)
+      await screen.findByText(/ta box est vide/i)
     ).toBeInTheDocument();
   });
 });

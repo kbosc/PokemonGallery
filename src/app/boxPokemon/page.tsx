@@ -35,16 +35,24 @@ export default function BoxPokemonPage() {
     enabled: uniquePokemonIds.length > 0,
   });
 
-  if (capturesLoading) return <div>Loading...</div>;
+  if (capturesLoading) return <p style={{ color: "var(--color-text-muted)", textAlign: "center", padding: "4rem" }}>Chargement de ta box…</p>;
   if (!captures || captures.length === 0) {
-    return <div>Tu n&apos;as pas encore attrapé de Pokémon !</div>;
+    return (
+      <p style={{ color: "var(--color-text-muted)", textAlign: "center", padding: "4rem" }}>
+        Ta box est vide — attrape des Pokémon dans le{" "}
+        <a href="/safariPokemon">Safari</a> !
+      </p>
+    );
   }
-  if (pokemonsLoading || !pokemonMap) return <div>Loading...</div>;
+  if (pokemonsLoading || !pokemonMap) return <p style={{ color: "var(--color-text-muted)", textAlign: "center", padding: "4rem" }}>Chargement…</p>;
 
   // Une carte par INSTANCE (donc doublons attendus). Le key=capture.id est
   // un UUID unique, pas de warning React.
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <h1 style={{ fontFamily: "var(--font-cinzel)", fontSize: "var(--fs-xl)", color: "var(--color-secondary)", marginBottom: "0.5rem" }}>
+        Ma Box
+      </h1>
       {captures.map((capture) => {
         const pokemon = pokemonMap.get(capture.pokemon_id);
         if (!pokemon) return null;
