@@ -2,7 +2,7 @@
   margin: 0 auto;
   position: relative;
   width: 350px;
-  height: 570px;
+  height: 580px;
   border-radius: 20px;
   padding: 20px;
   background-color: #4f50db;
@@ -113,10 +113,28 @@
   width: 210px;
   border-radius: 3px;
   margin-bottom: 15px;
+  overflow: hidden;
 
   &.on {
     background-color: #becbc4;
   }
+}
+
+.screensaver {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.screensaverText {
+  font-family: 'Courier New', monospace;
+  font-size: 7px;
+  color: #555;
+  text-align: center;
+  line-height: 2.4;
+  letter-spacing: 0.5px;
 }
 
 .label {

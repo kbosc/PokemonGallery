@@ -1,95 +1,95 @@
-// "use client" obligatoire : ce composant utilise useReducer, useEffect,
-// useRouter (navigation programmatique) et zustand (state global).
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useReducer } from "react";
-import useKeyPress from "../../../hooks/useKeyPress";
 import { useStore } from "../../../store/useStore";
 import styles from "./navGameboy.module.css";
 
-const initialState = { selectedIndex: 0 };
-export const list = ["gallery", "safari", "box"];
-const pages = ["/pokemonGallery", "/safariPokemon", "/boxPokemon"];
+const NAV_ITEMS = [
+  { key: "gallery",   label: "GALERIE",    path: "/pokemonGallery" },
+  { key: "safari",    label: "SAFARI",     path: "/safariPokemon"  },
+  { key: "box",       label: "BOX",        path: "/boxPokemon"     },
+  { key: "connexion", label: "CONNEXION",  path: null              },
+];
 
+type State = { selectedIndex: number };
 type Action =
-  | { type: "arrowUp" }
-  | { type: "arrowDown" }
-  | { type: "select"; payload: number };
+  | { type: "up" }
+  | { type: "down" }
+  | { type: "set"; i: number };
 
-const reducer = (state: { selectedIndex: number }, action: Action) => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "arrowUp":
-      return {
-        selectedIndex:
-          state.selectedIndex !== 0 ? state.selectedIndex - 1 : list.length - 1,
-      };
-    case "arrowDown":
-      return {
-        selectedIndex:
-          state.selectedIndex !== list.length - 1 ? state.selectedIndex + 1 : 0,
-      };
-    case "select":
-      return { selectedIndex: action.payload };
+    case "up":
+      return { selectedIndex: state.selectedIndex > 0 ? state.selectedIndex - 1 : NAV_ITEMS.length - 1 };
+    case "down":
+      return { selectedIndex: state.selectedIndex < NAV_ITEMS.length - 1 ? state.selectedIndex + 1 : 0 };
+    case "set":
+      return { selectedIndex: action.i };
     default:
-      throw new Error();
+      return state;
   }
 };
 
-export default function NavGameBoy() {
-  const mooveUp = useStore((state) => state.mooveUp);
-  const mooveDown = useStore((state) => state.mooveDown);
-  const enter = useStore((state) => state.enter);
-  const setMooveUp = useStore((state) => state.setMooveUp);
-  const setMooveDown = useStore((state) => state.setMooveDown);
-  const setEnter = useStore((state) => state.setEnter);
-  const arrowUpPressed = useKeyPress("ArrowUp");
-  const arrowDownPressed = useKeyPress("ArrowDown");
-  const enterPressed = useKeyPress("Enter");
-  const [state, dispatch] = useReducer(reducer, initialState);
-  // useRouter de next/navigation remplace useNavigate de react-router.
-  // router.push("/url") = naviguer vers une page.
+export default function NavGameboy({ onLoginRequest }: { onLoginRequest: () => void }) {
   const router = useRouter();
+  const mooveUp   = useStore((s) => s.mooveUp);
+  const mooveDown = useStore((s) => s.mooveDown);
+  const enter     = useStore((s) => s.enter);
+  const setMooveUp   = useStore((s) => s.setMooveUp);
+  const setMooveDown = useStore((s) => s.setMooveDown);
+  const setEnter     = useStore((s) => s.setEnter);
+
+  const [state, dispatch] = useReducer(reducer, { selectedIndex: 0 });
+
+  const confirmNav = (i: number) => {
+    const item = NAV_ITEMS[i];
+    if (item.key === "connexion") {
+      onLoginRequest();
+    } else if (item.path) {
+      router.push(item.path);
+    }
+  };
 
   useEffect(() => {
-    if (arrowUpPressed || mooveUp) {
-      dispatch({ type: "arrowUp" });
-      mooveUp && setMooveUp();
-    }
-  }, [arrowUpPressed, mooveUp]);
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowUp")   { e.preventDefault(); dispatch({ type: "up" }); }
+      if (e.key === "ArrowDown") { e.preventDefault(); dispatch({ type: "down" }); }
+      if (e.key === "Enter")     confirmNav(state.selectedIndex);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [state.selectedIndex]);
 
   useEffect(() => {
-    if (arrowDownPressed || mooveDown) {
-      dispatch({ type: "arrowDown" });
-      mooveDown && setMooveDown();
-    }
-  }, [arrowDownPressed, mooveDown]);
+    if (mooveUp)   { dispatch({ type: "up" });   setMooveUp();   }
+  }, [mooveUp]);
 
   useEffect(() => {
-    if (enterPressed || enter) {
-      router.push(pages[state.selectedIndex]);
-      enter && setEnter();
-    }
-  }, [enterPressed, enter]);
+    if (mooveDown) { dispatch({ type: "down" }); setMooveDown(); }
+  }, [mooveDown]);
+
+  useEffect(() => {
+    if (enter) { confirmNav(state.selectedIndex); setEnter(); }
+  }, [enter]);
 
   return (
-    <ul className={styles.navTextUl}>
-      {list.map((item, i) => (
-        <li
-          key={item}
-          onClick={() => {
-            dispatch({ type: "select", payload: i });
-          }}
-          style={{
-            cursor: "pointer",
-            color: i === state.selectedIndex ? "#000" : "#67879a",
-            backgroundColor: i === state.selectedIndex ? "#ccc" : "",
-          }}
-        >
-          <Link href={pages[i]}>{item}</Link>
-        </li>
-      ))}
-    </ul>
+    <div className={styles.menu}>
+      <div className={styles.menuTitle}>MENU PRINCIPAL</div>
+      <div className={styles.menuList}>
+        {NAV_ITEMS.map((item, i) => (
+          <div
+            key={item.key}
+            className={`${styles.menuItem} ${i === state.selectedIndex ? styles.selected : ""}`}
+            onClick={() => { dispatch({ type: "set", i }); setTimeout(() => confirmNav(i), 80); }}
+            onMouseEnter={() => dispatch({ type: "set", i })}
+          >
+            <span className={styles.arrow}>{i === state.selectedIndex ? "▶" : " "}</span>
+            {item.label}
+          </div>
+        ))}
+      </div>
+      <div className={styles.hint}>↑↓ naviguer  •  A / Entrée</div>
+    </div>
   );
 }

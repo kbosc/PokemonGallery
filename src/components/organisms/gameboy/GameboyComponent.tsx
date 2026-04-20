@@ -1,22 +1,24 @@
+"use client";
+
 import {
   AiFillCaretUp,
   AiFillCaretRight,
   AiFillCaretDown,
   AiFillCaretLeft,
 } from "react-icons/ai";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useSound from "use-sound";
 import clsx from "clsx";
-// Les sons sont dans public/sounds/ — on utilise le chemin URL directement.
-// Next.js sert automatiquement tout ce qui est dans public/ à la racine.
-const gameBoySong = "/sounds/gameBoySong.mp3";
 import AnimatedTextGameboy from "../../molecules/animatedTextGameboy/AnimatedTextGameboy";
+import NavGameboy from "../../molecules/navGameboy/NavGameboy";
+import LoginGameboy from "../../molecules/loginGameboy/LoginGameboy";
 import { useStore } from "../../../store/useStore";
 import styles from "./gameboy.module.css";
 
-// Speaker grid pattern — 8 rows of 8 dots, each dot is one of three variants:
-// p = placeholder (transparent), o = openDot (dark), c = closed (gradient).
-// Preserved verbatim from the original JSX for visual parity.
+const gameBoySong = "/sounds/gameBoySong.mp3";
+
+type Phase = "off" | "booting" | "menu" | "login";
+
 const SPEAKER_PATTERN: ReadonlyArray<ReadonlyArray<"p" | "o" | "c">> = [
   ["p", "o", "c", "o", "c", "o", "c", "p"],
   ["o", "c", "o", "c", "o", "c", "o", "c"],
@@ -38,28 +40,51 @@ export default function GameboyComponent() {
   const setMooveUp = useStore((state) => state.setMooveUp);
   const setMooveDown = useStore((state) => state.setMooveDown);
   const setEnter = useStore((state) => state.setEnter);
-  const [on, setOn] = useState(false);
+  const [phase, setPhase] = useState<Phase>("off");
   const [play] = useSound(gameBoySong, { volume: 0.03 });
 
-  const gameBoyOn = () => {
-    !on && play();
-    setOn((prev) => !prev);
-  };
+  const gameBoyOn = useCallback(() => {
+    if (phase !== "off") {
+      setPhase("off");
+      return;
+    }
+    play();
+    setPhase("booting");
+  }, [phase, play]);
 
   useEffect(() => {
-    const keyDownHandler = (event: KeyboardEvent) => {
+    const handler = (event: KeyboardEvent) => {
       if (event.key === "s" || event.key === "S") {
         event.preventDefault();
         gameBoyOn();
       }
     };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [gameBoyOn]);
 
-    document.addEventListener("keydown", keyDownHandler);
+  const on = phase !== "off";
 
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
-  }, [play]);
+  const screenContent = () => {
+    switch (phase) {
+      case "off":
+        return (
+          <div className={styles.screensaver}>
+            <div className={styles.screensaverText}>
+              PRESS START
+              <br />
+              OR&nbsp;&nbsp;[ S ]
+            </div>
+          </div>
+        );
+      case "booting":
+        return <AnimatedTextGameboy onComplete={() => setPhase("menu")} />;
+      case "menu":
+        return <NavGameboy onLoginRequest={() => setPhase("login")} />;
+      case "login":
+        return <LoginGameboy onBack={() => setPhase("menu")} />;
+    }
+  };
 
   return (
     <div className={styles.gameboy}>
@@ -75,7 +100,7 @@ export default function GameboyComponent() {
         </div>
 
         <div className={clsx(styles.display, on && styles.on)}>
-          {on && <AnimatedTextGameboy />}
+          {screenContent()}
         </div>
 
         <div className={styles.label}>
@@ -110,7 +135,6 @@ export default function GameboyComponent() {
         </div>
         <div className={styles.ab}>
           <div className={styles.b}>B</div>
-          <div className={styles.a}>A</div>
           <div className={styles.a} onClick={() => setEnter()}>
             A
           </div>
@@ -121,7 +145,7 @@ export default function GameboyComponent() {
         <div className={styles.select}>SELECT</div>
         <div
           className={clsx(styles.start, on && styles.on)}
-          onClick={() => gameBoyOn()}
+          onClick={gameBoyOn}
         >
           START
         </div>

@@ -1,45 +1,55 @@
-.navTextUl {
+.menu {
+  background: #becbc4;
+  width: 100%;
+  height: 100%;
+  padding: 10px 8px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+}
 
-  & li {
-    list-style: none;
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #555;
-    padding: 10px;
-    cursor: pointer;
-    animation: fadeIn 0.5s ease-in-out;
-    text-decoration: none;
+.menuTitle {
+  font-family: 'Courier New', monospace;
+  font-size: 7px;
+  color: #555;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
 
-    &:hover {
-      color: #000;
-      background-color: #ccc;
-    }
+.menuList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-    &.selected {
-      color: #000;
-      background-color: #ccc;
+.menuItem {
+  font-family: 'Courier New', monospace;
+  font-size: 8.5px;
+  padding: 7px 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #3a3a3a;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.1s, color 0.1s;
 
-      &::after {
-        content: ">";
-        margin-left: 5px;
-      }
-    }
-
-    & a {
-      text-decoration: none;
-      color: var(--color-gameboy-txt);
-    }
+  &.selected {
+    background: #4f50db;
+    color: #fff;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+.arrow {
+  font-size: 7px;
+  width: 10px;
+  display: inline-block;
+}
 
-  to {
-    opacity: 1;
-  }
+.hint {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: #777;
+  line-height: 2.2;
 }
