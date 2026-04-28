@@ -1,0 +1,119 @@
+.root {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: var(--gb-main);
+  color: #fff;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.18s ease, background 0.18s ease;
+
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  animation: panelIn 0.18s ease both;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.panelTitle {
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionLabel {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.colorRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+}
+
+.swatchActive {
+  border-color: var(--color-text);
+  transform: scale(1.2);
+}
+
+.themeRow {
+  display: flex;
+  gap: 6px;
+}
+
+.themeBtn {
+  flex: 1;
+  padding: 8px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+
+  &:hover {
+    border-color: var(--color-border-hover);
+    color: var(--color-text);
+  }
+}
+
+.themeBtnActive {
+  background: var(--gb-main);
+  color: #fff;
+  border-color: var(--gb-main);
+  font-weight: 600;
+}

@@ -7,12 +7,35 @@
 }
 
 html {
-  font-size: 62.5%;
-  font-weight: bold;
-  /* equivalent to 10px; 1rem = 10px; 10px/16px */
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
   box-sizing: border-box;
-  font-family: "Muli", sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-secondary-light);
+  }
+}
+
+/* Barre de scroll discrète sur les navigateurs WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-elevated);
+  border-radius: 3px;
 }

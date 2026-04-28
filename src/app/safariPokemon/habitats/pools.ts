@@ -27,7 +27,7 @@ export type HabitatPoolConfig = {
 //     Sans cet override, ils seraient absents de tous les pools.
 //     Mont-Sélénite est leur habitat canonique → Caverne.
 export const CAVERNE_CONFIG: HabitatPoolConfig = {
-  types: ["rock", "ground"],
+  types: ["rock", "ground", "dragon", "fighting"],
   extraIds: [
     35, // Clefairy
     36, // Clefable
@@ -41,20 +41,20 @@ export const CAVERNE_CONFIG: HabitatPoolConfig = {
 // Océan : tous les water types Gen 1 (~32 pokémons).
 // Pas d'extras nécessaires, le typage water est déjà très large.
 export const OCEAN_CONFIG: HabitatPoolConfig = {
-  types: ["water"],
+  types: ["water", "ice"],
 };
 
 // Plaine : herbe + normal + électrique = prairies, bosquets, champs.
 // excludeIds : on retire les water types qui sont aussi normal (rare) ou
 // les pokémons clairement aquatiques. Pour la Gen 1 c'est OK tel quel.
 export const PLAINE_CONFIG: HabitatPoolConfig = {
-  types: ["grass", "normal", "electric"],
+  types: ["grass", "normal", "electric", "fighting"],
 };
 
 // Volcan : feu uniquement. Pool plus restreint (~12 pokémons Gen 1) mais
 // très thématique.
 export const VOLCAN_CONFIG: HabitatPoolConfig = {
-  types: ["fire"],
+  types: ["fire", "dragon"],
 };
 
 // Forêt : insectes + poison = sous-bois sombre, lianes toxiques, nids.
@@ -62,7 +62,7 @@ export const VOLCAN_CONFIG: HabitatPoolConfig = {
 // Koffing, etc. Les grass/poison (Bulbasaur, Oddish…) apparaissent
 // aussi ici en plus de la Plaine — overlap volontaire pour la variété.
 export const FORET_CONFIG: HabitatPoolConfig = {
-  types: ["bug", "poison"],
+  types: ["bug", "poison", "fighting", "grass"],
 };
 
 // Sanctuaire : le "fourre-tout thématisé". Rassemble psychic, ghost,
@@ -73,5 +73,5 @@ export const FORET_CONFIG: HabitatPoolConfig = {
 // Haunter/Gengar, Machop/Hitmonlee, Dratini/Dragonair/Dragonite,
 // Jynx/Articuno, Mewtwo/Mew.
 export const SANCTUAIRE_CONFIG: HabitatPoolConfig = {
-  types: ["psychic", "ghost", "fighting", "dragon", "ice"],
+  types: ["psychic", "ghost", "ice"],
 };

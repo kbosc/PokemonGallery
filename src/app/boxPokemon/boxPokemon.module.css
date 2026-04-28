@@ -1,0 +1,382 @@
+.status {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 4rem;
+
+  & a {
+    color: var(--color-secondary);
+  }
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding-bottom: 4rem;
+}
+
+.pageHeader {
+  text-align: center;
+}
+
+.pageTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+  margin: 0 0 0.4rem;
+}
+
+.pageSubtitle {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ── PC Box card ── */
+.boxCard {
+  background: linear-gradient(160deg, #1a3a6a 0%, #2a5a9a 45%, #1a4a7a 100%);
+  border-radius: 22px;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.45);
+  border: 3px solid #3a6aaa;
+}
+
+.boxNav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.navArrow {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 7px;
+  padding: 4px 11px;
+  font-size: 1.6rem;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.boxLabel {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-cinzel), serif;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 7px 12px;
+  border-radius: 9px;
+  letter-spacing: 0.05em;
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sortBtn {
+  padding: 3px 11px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s, color 0.12s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+}
+
+.sortBtnActive {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a3a6a;
+  font-weight: 700;
+}
+
+.typeSelect {
+  padding: 3px 9px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  outline: none;
+  margin-left: auto;
+  font-family: inherit;
+  text-transform: capitalize;
+
+  & option {
+    background: #1a3a6a;
+    text-transform: capitalize;
+  }
+}
+
+/* ── Slot grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+}
+
+.slot {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid transparent;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+
+  &:hover:not(.slotEmpty) {
+    transform: scale(1.08);
+  }
+}
+
+.slotSelected {
+  border-color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.55);
+}
+
+.slotEmpty {
+  background: rgba(0, 0, 0, 0.22);
+  cursor: default;
+  opacity: 0.35;
+}
+
+.slotSprite {
+  width: 88%;
+  height: 88%;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.emptyDot {
+  width: 38%;
+  height: 38%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.shinyDot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+/* ── Selected info panel ── */
+.infoPanel {
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.38);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.infoPanelArt {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.infoPanelText {
+  flex: 1;
+  min-width: 0;
+}
+
+.infoPanelName {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 3px;
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.infoPanelMeta {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 9px;
+  text-transform: capitalize;
+}
+
+.infoPanelActions {
+  display: flex;
+  gap: 8px;
+}
+
+.renameBtn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.85);
+  color: #1a3a6a;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  transition: background 0.12s;
+
+  &:hover {
+    background: #fff;
+  }
+}
+
+.releaseBtn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(220, 70, 70, 0.75);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba(220, 70, 70, 0.95);
+  }
+}
+
+/* ── Modals ── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(6px);
+}
+
+.modal {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 28px;
+  max-width: 340px;
+  width: 90%;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modalTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+.modalBody {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+
+  & strong {
+    color: var(--color-text);
+    text-transform: capitalize;
+  }
+}
+
+.renameInput {
+  width: 100%;
+  padding: 1rem 1.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--fs-base);
+  font-family: inherit;
+  box-sizing: border-box;
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-secondary);
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+}
+
+.modalCancel {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  transition: background 0.12s;
+
+  &:hover {
+    background: var(--color-surface-elevated);
+  }
+}
+
+.modalConfirm {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--color-secondary);
+  color: var(--color-bg);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  transition: background 0.12s;
+
+  &:hover {
+    background: var(--color-secondary-light);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.modalConfirmDanger {
+  composes: modalConfirm;
+  background: #e05050;
+  color: #fff;
+
+  &:hover {
+    background: #c03030;
+  }
+}
