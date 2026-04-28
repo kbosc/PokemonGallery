@@ -10,7 +10,8 @@ import "../assets/styles/variables.css";
 import "../assets/styles/globals.css";
 import styles from "./layout.module.css";
 import Providers from "./providers";
-import Header from "../components/organisms/header/Header";
+import PokeballNav from "../components/organisms/pokeballNav/PokeballNav";
+import TweaksPanel from "../components/organisms/tweaksPanel/TweaksPanel";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,8 +47,9 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Providers>
           <div className={styles.app}>
-            <Header />
             <main className={styles.main}>{children}</main>
+            <PokeballNav />
+            <TweaksPanel />
           </div>
         </Providers>
       </body>

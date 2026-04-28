@@ -14,13 +14,13 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 
 .back {
   font-family: 'Courier New', monospace;
   font-size: 7px;
   color: #555;
-  cursor: pointer;
 
   &:hover {
     color: #333;
@@ -29,7 +29,7 @@
 
 .title {
   font-family: 'Courier New', monospace;
-  font-size: 7px;
+  font-size: 9px;
   color: #333;
 }
 
@@ -42,7 +42,7 @@
 .input {
   padding: 5px 7px;
   font-size: 10px;
-  border: 2px solid #0d0e51;
+  border: 2px solid var(--gb-dark);
   background: #d4e0d8;
   border-radius: 3px;
   font-family: sans-serif;
@@ -65,15 +65,15 @@
 }
 
 .submitBtn {
-  background: #4f50db;
+  background: var(--gb-main);
   color: #fff;
   border: none;
   padding: 7px;
   font-family: 'Courier New', monospace;
-  font-size: 6px;
+  font-size: 9px;
   cursor: pointer;
   border-radius: 3px;
-  box-shadow: 0 2px 0 #0d0e51;
+  box-shadow: 0 2px 0 var(--gb-dark);
 
   &:disabled {
     opacity: 0.7;
@@ -87,11 +87,11 @@
 
 .registerBtn {
   background: transparent;
-  color: #0d0e51;
-  border: 1.5px solid #3d38b5;
+  color: var(--gb-dark);
+  border: 1.5px solid var(--gb-mid);
   padding: 6px;
   font-family: 'Courier New', monospace;
-  font-size: 5.5px;
+  font-size: 9px;
   cursor: pointer;
   border-radius: 3px;
 
@@ -103,7 +103,7 @@
 .googleLink {
   margin-top: auto;
   font-family: 'Courier New', monospace;
-  font-size: 5px;
+  font-size: 9px;
   color: #777;
   text-align: center;
   cursor: pointer;

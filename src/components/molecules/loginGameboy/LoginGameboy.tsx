@@ -17,7 +17,10 @@ export default function LoginGameboy({ onBack }: { onBack: () => void }) {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     if (error) {
       setError("Email ou mot de passe incorrect");
       setLoading(false);
@@ -36,8 +39,8 @@ export default function LoginGameboy({ onBack }: { onBack: () => void }) {
 
   return (
     <div className={styles.screen}>
-      <div className={styles.header}>
-        <span className={styles.back} onClick={onBack}>◀</span>
+      <div className={styles.header} onClick={onBack}>
+        <span className={styles.back}>◀</span>
         <span className={styles.title}>CONNEXION</span>
       </div>
 
@@ -64,7 +67,11 @@ export default function LoginGameboy({ onBack }: { onBack: () => void }) {
         </button>
       </form>
 
-      <button type="button" className={styles.registerBtn} onClick={() => router.push("/signup")}>
+      <button
+        type="button"
+        className={styles.registerBtn}
+        onClick={() => router.push("/signup")}
+      >
         CRÉER UN COMPTE
       </button>
 

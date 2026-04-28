@@ -22,6 +22,16 @@
   --color-red:              #f15324;
   --color-success:          #4caf7d;
 
+  /* ---- Mode par défaut : dark ---- */
+  color-scheme: dark;
+
+  /* ---- Couleurs Gameboy (surchargeables via TweaksPanel) ---- */
+  --gb-main:  #4f50db;
+  --gb-dark:  #0d0e51;
+  --gb-mid:   #3d38b5;
+  --gb-light: #9998eb;
+  --gb-text:  #6b67ed;
+
   /* ---- Legacy (ne pas utiliser dans le nouveau code) ---- */
   --color-gameboy-txt:      #67879a;
   --color-black:            #1a1a2e;
@@ -42,6 +52,9 @@
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-glow: 0 0 20px rgba(242, 209, 71, 0.15);
 
+  /* ---- Ombre light-mode ---- */
+  --shadow-card-light: 0 4px 24px rgba(0, 0, 0, 0.1);
+
   /* ---- Type Pokémon (badge couleurs) ---- */
   --type-normal:   #9a9a8e;
   --type-fire:     #f08030;
@@ -61,4 +74,33 @@
   --type-dark:     #705848;
   --type-steel:    #a8b8d0;
   --type-fairy:    #ee99ac;
+}
+
+/* ════════════════════════════════════════
+   LIGHT MODE
+   ════════════════════════════════════════ */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg:               #f2f2f8;
+  --color-surface:          #ffffff;
+  --color-surface-elevated: #eaeaf4;
+  --color-border:           rgba(0, 0, 0, 0.09);
+  --color-border-hover:     rgba(0, 0, 0, 0.18);
+
+  --color-text:             #18182c;
+  --color-text-muted:       rgba(24, 24, 44, 0.5);
+
+  --color-primary:          #2c6aab;
+  --color-primary-light:    #4a90d9;
+  --color-primary-dark:     #1a4a80;
+
+  --color-secondary:        #b8920a;   /* or foncé, lisible sur fond clair */
+  --color-secondary-light:  #f2d147;
+  --color-secondary-dark:   #7a5e00;
+
+  --color-red:              #d43010;
+  --color-success:          #2e8a55;
+
+  --shadow-card:            0 2px 16px rgba(0, 0, 0, 0.1);
 }

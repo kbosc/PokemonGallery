@@ -17,7 +17,21 @@ import styles from "./gameboy.module.css";
 
 const gameBoySong = "/sounds/gameBoySong.mp3";
 
-type Phase = "off" | "booting" | "menu" | "login";
+type Phase = "off" | "booting" | "splash" | "menu" | "login";
+
+function GameboySplash({ onComplete }: { onComplete: () => void }) {
+  useEffect(() => {
+    const t = setTimeout(onComplete, 1500);
+    return () => clearTimeout(t);
+  }, [onComplete]);
+
+  return (
+    <div className={styles.splash}>
+      <span className={styles.splashTitle}>POKEMON</span>
+      <span className={styles.splashSub}>GALLERY</span>
+    </div>
+  );
+}
 
 const SPEAKER_PATTERN: ReadonlyArray<ReadonlyArray<"p" | "o" | "c">> = [
   ["p", "o", "c", "o", "c", "o", "c", "p"],
@@ -78,7 +92,9 @@ export default function GameboyComponent() {
           </div>
         );
       case "booting":
-        return <AnimatedTextGameboy onComplete={() => setPhase("menu")} />;
+        return <AnimatedTextGameboy onComplete={() => setPhase("splash")} />;
+      case "splash":
+        return <GameboySplash onComplete={() => setPhase("menu")} />;
       case "menu":
         return <NavGameboy onLoginRequest={() => setPhase("login")} />;
       case "login":

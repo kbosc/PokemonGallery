@@ -1,7 +1,85 @@
-.gallery {
+.page {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.4rem;
+  padding-bottom: 4rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.title {
+  font-family: var(--font-cinzel), serif;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+
+  & strong {
+    color: var(--color-text);
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1.4rem;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+
+  &:hover {
+    border-color: var(--color-border-hover);
+  }
+}
+
+.filterBtnActive {
+  background: var(--color-secondary);
+  color: var(--color-bg);
+  border-color: var(--color-secondary);
+  font-weight: 600;
+}
+
+.typeSelect {
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  text-transform: capitalize;
+
+  &:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  & option {
+    text-transform: capitalize;
+  }
 }
 
 .cardContainer {
@@ -11,8 +89,16 @@
   justify-content: center;
 }
 
-.buttonRow {
+.loadSentinel {
   display: flex;
   justify-content: center;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
+  min-height: 40px;
+}
+
+.loadingText {
+  font-family: var(--font-cinzel), serif;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
 }

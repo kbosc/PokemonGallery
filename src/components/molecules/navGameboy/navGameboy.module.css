@@ -10,7 +10,7 @@
 
 .menuTitle {
   font-family: 'Courier New', monospace;
-  font-size: 7px;
+  font-size: 9px;
   color: #555;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
@@ -36,13 +36,13 @@
   transition: background 0.1s, color 0.1s;
 
   &.selected {
-    background: #4f50db;
+    background: var(--gb-main);
     color: #fff;
   }
 }
 
 .arrow {
-  font-size: 7px;
+  font-size: 9px;
   width: 10px;
   display: inline-block;
 }
