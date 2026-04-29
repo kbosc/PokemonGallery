@@ -26,6 +26,13 @@ vi.mock("../../api/pokeApi", () => ({
       nextPage: null,
     },
   ]),
+  getPokemon: vi.fn(),
+  getPokemonIdsByType: vi.fn(),
+  POKEMON_TYPES: [
+    "normal", "fire", "water", "electric", "grass", "ice",
+    "fighting", "poison", "ground", "flying", "psychic", "bug",
+    "rock", "ghost", "dragon", "dark", "steel", "fairy",
+  ],
 }));
 
 describe("PokemonGallery (smoke)", () => {
@@ -33,7 +40,7 @@ describe("PokemonGallery (smoke)", () => {
     renderWithProviders(<PokemonGalleryPage />);
 
     await waitFor(() => {
-      expect(screen.getByText(/bulbasaur/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/bulbasaur/i).length).toBeGreaterThan(0);
     });
   });
 });

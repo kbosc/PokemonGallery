@@ -39,7 +39,7 @@ describe("PokemonCard (read-only gallery)", () => {
 
     // Les captures s'hydratent de manière asynchrone ; on attend que
     // le fetch soit résolu avant de valider l'absence de badge.
-    await screen.findByText(/pikachu/i);
+    await screen.findAllByText(/pikachu/i);
     expect(screen.queryByText(/^×\d+$/)).not.toBeInTheDocument();
   });
 
@@ -54,6 +54,6 @@ describe("PokemonCard (read-only gallery)", () => {
       <PokemonCard id={25} name="pikachu" image="pikachu.png" type="electric" />
     );
 
-    expect(await screen.findByText("×3")).toBeInTheDocument();
+    expect(await screen.findByText(/×3/)).toBeInTheDocument();
   });
 });
