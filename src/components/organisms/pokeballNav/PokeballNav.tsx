@@ -6,7 +6,7 @@ import { createClient } from "../../../lib/supabase/client";
 import styles from "./pokeballNav.module.css";
 
 const NAV_ITEMS = [
-  { key: "home",    label: "🏠 Accueil",  path: "/" },
+  // { key: "home",    label: "🏠 Accueil",  path: "/" },
   { key: "gallery", label: "📖 Galerie",  path: "/pokemonGallery" },
   { key: "safari",  label: "🌿 Safari",   path: "/safariPokemon" },
   { key: "box",     label: "📦 Box",      path: "/boxPokemon" },

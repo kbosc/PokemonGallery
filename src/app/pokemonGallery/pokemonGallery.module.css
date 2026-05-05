@@ -55,9 +55,9 @@
 }
 
 .filterBtnActive {
-  background: var(--color-secondary);
+  background: var(--gb-main);
   color: var(--color-bg);
-  border-color: var(--color-secondary);
+  border-color: var(--gb-main);
   font-weight: 600;
 }
 
